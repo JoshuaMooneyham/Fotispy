@@ -1,0 +1,24 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fotispy</title>
+    <link rel="stylesheet" href="{% static "styles.css" %}">
+    <script src="{% static 'script.js'%}" defer></script>
+</head>
+<body>
+    Hello World
+    {% comment %} <audio id='mysong' src={{song.song_file.url}}></audio>
+    <iframe src="http://localhost:8000/iframe/"></iframe>
+    <button class='playerbtn' id='playbtn' ><img class='playerbtnimage' src="{% static "play-button.png" %}" alt=""></button>
+    <button class='playerbtn' id='pausebtn'><img class='playerbtnimage' src="{% static "video-pause-button.png" %}" alt=""></button>
+    <button id='test'>Test</button> {% endcomment %}
+    {% for song in songs %}
+    <div class='songObject' title={{song.song_file.url}}>{{song.title}}</div>
+    {% endfor %}
+    {% block content %}{% endblock content %}
+</body>
+</html>
