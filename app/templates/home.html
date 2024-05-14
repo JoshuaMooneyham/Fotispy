@@ -10,15 +10,15 @@
     <script src="{% static 'script.js'%}" defer></script>
 </head>
 <body>
-    Hello World
-    {% comment %} <audio id='mysong' src={{song.song_file.url}}></audio>
-    <iframe src="http://localhost:8000/iframe/"></iframe>
-    <button class='playerbtn' id='playbtn' ><img class='playerbtnimage' src="{% static "play-button.png" %}" alt=""></button>
-    <button class='playerbtn' id='pausebtn'><img class='playerbtnimage' src="{% static "video-pause-button.png" %}" alt=""></button>
-    <button id='test'>Test</button> {% endcomment %}
     {% for song in songs %}
     <div class='songObject' title={{song.song_file.url}}>{{song.title}}</div>
     {% endfor %}
+    <button id='playlistTest'>
+        {% for song in songs %}
+        <option class='playlistObject' title={{song.song_file.url}}>{{song.title}}</option>
+        {% endfor %}
+    </button>
+
     {% block content %}{% endblock content %}
 </body>
 </html>

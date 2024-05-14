@@ -1,6 +1,79 @@
+* {
+    padding: 0;
+    margin: 0;
+    /* outline: red dashed 1px; */
+}
+
+#playlistTest {
+    width: 100px;
+    height: 100px;
+}
+
+.playlistObject {
+    display: none;
+}
+
+#media-player {
+    display: flex;
+    position: absolute;
+    justify-content: space-evenly;
+    align-items: center;
+    bottom: 0;
+    background-color: rgb(41, 41, 41);
+    height: 120px;
+    width: 100vw;
+    font-family: sans-serif;
+    font-weight: bolder;
+}
+
+#now-playing-wrapper {
+    width: 174px;
+    color: #d8d8d8;
+}
+
+#playing-title {
+    font-size: 1.5em;
+}
+
+#playing-artist {
+    color: #999999;
+}
+
+#media-buttons-and-timer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#media-button-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#time-and-progress {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    gap: 10px;
+    color: #d8d8d8;
+}
+
+#volume-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 25px;
+}
+
+#mutebtn img {
+    height: 25px;
+    width: 25px;
+}
+
 .playerbtnimage {
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
 }
 
 .playerbtn {
@@ -15,10 +88,153 @@
     opacity: 60%;
 }
 
-#playbtn {
+.inactive {
+    opacity: 60%;
+}
+
+#pausebtn {
     display: none;
 }
 
-.iframetest{
+#playbtn img, #pausebtn img {
+    height: 60px;
+    width: 60px;
+}
+
+.iframetest {
     background-color: red;
 }
+
+#slider {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 1px transparent solid;
+    border-radius: 10px;
+    color: rgb(216, 216, 216);
+    overflow: hidden;
+    width: 40rem;
+    height: .7rem
+}
+
+#slider::-webkit-progress-bar {
+    background: rgba(60, 60, 60, 0.867);
+}
+
+#slider::-webkit-progress-value {
+    background: rgb(216, 216, 216);
+}
+
+#volume {
+    height: 20px;
+    /* -webkit-appearance: none; */
+    appearance: none;
+    background: none;
+}
+
+#volume::-webkit-slider-runnable-track {
+    background: rgba(60, 60, 60, 0.867);
+    border-radius: 10px;
+    height: 6px;
+    overflow: hidden;
+}
+
+#volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    display: flex;
+    background: #d8d8d8;
+    box-shadow: -1000.5px 0 0 1000px #d8d8d8;
+    height: 1px;
+    width: 1px;
+    border-radius: 20px;
+}
+
+
+/* Audio tag styles */
+/* #songtest {
+    width: 1000px;
+    color: transparent;
+}
+
+#songtest::-webkit-media-controls-enclosure {
+    background: none;
+    height: 10px;
+}
+
+#songtest::-webkit-media-controls-timeline {
+    visibility: visible;
+    width: 40rem;
+}
+
+#songtest::-webkit-media-controls-timeline-container {
+    width: 1000px;
+}
+
+#songtest::-webkit-media-controls-current-time-display {
+    display: none;
+}
+
+#songtest::-webkit-media-controls-time-remaining-display {
+    display: none;
+}
+
+#songtest::-webkit-media-controls-play-button {
+    display: none;
+}
+
+#songtest::-webkit-media-controls-mute-button {
+    display: none;
+}
+
+audio::-webkit-media-controls-volume-slider-container {
+    display: none;
+}
+
+audio::-webkit-media-controls-volume-slider {
+    display: none;
+}
+
+audio::-webkit-media-controls-seek-back-button {
+    display: none;
+}
+
+audio::-webkit-media-controls-seek-forward-button {
+    display: none;
+}
+
+audio::-webkit-media-controls-fullscreen-button {
+    display: none;
+}
+
+audio::-webkit-media-controls-rewind-button {
+    display: none;
+}
+
+audio::-webkit-media-controls-return-to-realtime-button {
+    display: none;
+}
+
+audio::-webkit-media-controls-toggle-closed-captions-button {
+    display: none;
+}
+
+#songtest::-webkit-media-controls-volume-control-container {
+    display: none;
+}
+
+#songtest::-internal-media-controls-overflow-button {
+    display: none;
+}
+
+#songtest::-internal-media-controls-button-hover-background {
+    display: none;
+}
+
+#songtest::-internal-media-controls-overflow-menu-list-item {
+    display: none;
+}
+
+#songtest::-internal-media-controls-playback-speed-list {
+    display: none;
+} */

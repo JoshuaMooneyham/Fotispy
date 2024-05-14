@@ -1,6 +1,30 @@
 {% extends "home.html" %}
+{% load static %}
 
 {% block content %}
-<p>this is the new content</p>
-<audio id='songtest' src=""></audio>
+<footer id='media-player'>
+    <audio id='songtest' src=""></audio>
+    <div id='now-playing-wrapper'>
+        <p id='playing-title'></p>
+        <p id='playing-artist'></p>
+    </div>
+    <div id='media-buttons-and-timer'>
+        <div id='media-button-container'>
+            <button class='playerbtn inactive' id='prevbtn'><img class='playerbtnimage' src="{% static "rewind-button.png" %}" alt=""></button>
+            <button class='playerbtn inactive' id='playbtn'><img class='playerbtnimage' src="{% static "play-button.png" %}" alt=""></button>
+            <button class='playerbtn inactive' id='pausebtn'><img class='playerbtnimage' src="{% static "video-pause-button.png" %}" alt=""></button>
+            <button class='playerbtn inactive' id='nextbtn'><img class='playerbtnimage' src="{% static "forward-button.png" %}" alt=""></button>
+        </div>
+        <div id='time-and-progress'>
+            <div id="current-time">-:--</div>
+            <progress id='slider' value='0' max='100'></progress>
+            <div id="total-duration">-:--</div>
+        </div>
+    </div>
+    <div id='volume-wrapper'>
+        <button class='playerbtn' id='mutebtn'><img class='playerbtnimage' id='mutebtnimg' src="{% static "volume.png" %}" alt=""></button>
+        <input id='volume' type="range" value='1' max='1' step='.01'>
+    </div>
+</footer>
+<script src="{% static "mediaplayer.js" %}"></script>
 {% endblock content %}

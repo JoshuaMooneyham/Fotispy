@@ -10,12 +10,20 @@ class Artist(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class Genre(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
 
 
 class Song(models.Model):
     title = models.CharField(max_length=50)
     song_file = models.FileField(upload_to='')
     artist = models.ManyToManyField(Artist)
+    genre = models.ManyToManyField(Genre)
 
     def __str__(self):
         return self.title
