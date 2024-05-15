@@ -14,12 +14,6 @@ function buffer() {
     let title = document.getElementById('playing-title');
     let artist = document.getElementById('playing-artist');
     let songlist = iframeDoc.querySelectorAll('.songObject')
-
-    // let songlist = $('.songObject');
-    // let iframe = document.querySelector('iframe');
-    // let iframeDoc = iframe.contentDocument;
-    // console.log(iframeDoc)
-    // console.log(iframeDoc.getElementsByClassName('songObject'))
     let playlistbtn = iframeDoc.getElementById('playlistTest');
 
     let queue = [];

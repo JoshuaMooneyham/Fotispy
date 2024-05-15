@@ -53,7 +53,7 @@ def home_view(req: HttpRequest) -> HttpResponse:
     print(songs[0].song_file.url)
     context = {'songs': songs}
 
-    return render(req, 'base.html', context)
+    return render(req, 'homepage.html', context)
 
 def add_song_view(req: HttpRequest) -> HttpResponse:
     form = AddSongForm()
@@ -66,10 +66,7 @@ def add_song_view(req: HttpRequest) -> HttpResponse:
 
     return render(req, 'add-song.html', {'form': form})
 
-def iframe(req):
-    return render(req, 'iframe.html')
-
-def ift_view(req):
+def home_frame(req: HttpRequest) -> HttpResponse:
     songs = Song.objects.all()
     form = AddSongForm()
     if req.method == 'POST':

@@ -13,7 +13,7 @@ class CreateUserForm(UserCreationForm):
 class AddSongForm(forms.ModelForm):
     class Meta:
         model = Song
-        fields = ['song_file', 'title']
+        fields = ['song_file', 'title', 'genre', 'artist']
 
     def clean(self):
         cleaned_data = super().clean()

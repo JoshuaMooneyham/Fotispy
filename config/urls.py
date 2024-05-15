@@ -26,10 +26,9 @@ urlpatterns = [
     path('login/', LogInView, name='login'),
     path('logout/', logoutView, name='logout'),
     path('songs/add/', add_song_view, name='add_song'),
-    path('iframe/', iframe, name='iframe'),
     path('', home_view, name='home'),
     path("admin/", admin.site.urls),
-    path('iframetest/', ift_view, name='ift'),
+    path('iframetest/', home_frame, name='ift'),
 ]
 
 if settings.DEBUG is True:

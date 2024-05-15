@@ -1,4 +1,6 @@
-$(function(){    
+function buffer() {
+    let iframe = document.getElementById('iframe')
+    let iframeDoc = iframe.contentDocument;
     let player = document.getElementById('songtest');
     let pause = document.getElementById('pausebtn');
     let play = document.getElementById('playbtn');
@@ -7,29 +9,13 @@ $(function(){
     let currentDisplay = document.getElementById('current-time');
     let totalDisplay = document.getElementById('total-duration');
     let mute = document.getElementById('mutebtn');
-    let playlistbtn = document.getElementById('playlistTest');
     let skip = document.getElementById('nextbtn');
     let back = document.getElementById('prevbtn');
     let title = document.getElementById('playing-title');
     let artist = document.getElementById('playing-artist');
+    let songlist = iframeDoc.querySelectorAll('.songObject')
+    let playlistbtn = iframeDoc.getElementById('playlistTest');
 
-    let songlist = $('.songObject')
-    console.log(songlist)
-
-    // let pause = document.getElementById('pausebtn');
-    // let play = document.getElementById('playbtn');
-    // let player = document.getElementById('songtest');
-    // let progressBar = document.getElementById('slider');
-    // let volumeBar = document.getElementById('volume');
-    // let currentDisplay = document.getElementById('current-time');
-    // let totalDisplay = document.getElementById('total-duration');
-    // let mute = document.getElementById('mutebtn');
-    // let playlistbtn = document.getElementById('playlistTest');
-    // let skip = document.getElementById('nextbtn');
-    // let back = document.getElementById('prevbtn');
-    // let title = document.getElementById('playing-title');
-    // let artist = document.getElementById('playing-artist');
-    // let songlist = document.querySelectorAll('.songObject');
     let queue = [];
     let currentSong = '';
 
@@ -57,7 +43,7 @@ $(function(){
 
     function setVolume() {
         player.volume = volumeBar.value;
-        document.getElementById('mutebtnimg').src = player.volume > .6 ? '/static/volume.png' : player2.volume > .3 ? '/static/volume (1).png' : player2.volume === 0 ? '/static/mute.png' : '/static/volume (2).png';
+        document.getElementById('mutebtnimg').src = player.volume > .6 ? '/static/volume.png' : player.volume > .3 ? '/static/volume (1).png' : player.volume === 0 ? '/static/mute.png' : '/static/volume (2).png';
     }
 
     function handleMute() {
@@ -112,11 +98,13 @@ $(function(){
 
     skip.onclick = () => {
         if (queue.indexOf(currentSong)+1 < queue.length) {
-        loadSong(queue[queue.indexOf(currentSong)+1]);
+            loadSong(queue[queue.indexOf(currentSong)+1]);
         }
     }
 
     back.onclick = () => {
+        if (queue.indexOf(currentSong) > 0) {
         loadSong(queue[queue.indexOf(currentSong)-1]);
+        }
     }
-})
+}

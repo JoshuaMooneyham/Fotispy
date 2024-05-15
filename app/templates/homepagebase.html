@@ -1,0 +1,20 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fotispy</title>
+    <link rel="stylesheet" href="{% static "styles.css" %}">
+    <script src="{% static "mediaplayer.js" %}" defer></script>
+    {% comment %} <script src="{% static 'script.js'%}" defer></script> {% endcomment %}
+    {% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> {% endcomment %}
+</head>
+<body>
+    <div id='iframe-container'>
+        <iframe id='iframe' src="/iframetest/" onload='buffer()' frameborder="0"></iframe>
+    </div>
+    {% block content %}{% endblock content %}
+</body>
+</html>
