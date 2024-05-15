@@ -1,3 +1,6 @@
+{% extends "ift.html" %}
+
+{% block formcontent %}
 <form action="" method='POST' enctype="multipart/form-data">
     {% csrf_token %}
     {{form.as_p}}
@@ -6,3 +9,4 @@
     <input type='text' name='title'> {% endcomment %}
     <input type="submit" name='Add Song'>
 </form>
+{% endblock formcontent %}

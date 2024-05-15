@@ -150,6 +150,13 @@
     border-radius: 20px;
 }
 
+#iframe {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 95vw;
+    height: calc(100vh - 120px);
+}
 
 /* Audio tag styles */
 /* #songtest {

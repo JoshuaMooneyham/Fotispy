@@ -132,3 +132,7 @@ MEDIA_URL='media/'
 
 # ENV_PATH = os.path.abspath(os.path.dirname(__file__))
 # MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
+
+# X Frame Options Config
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'

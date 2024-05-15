@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fotispy</title>
+    <link rel="stylesheet" href="{% static "styles.css" %}">
+    <script>
+        let testVariable = 'hello';
+        function testFunctionToRun() {
+            console.log('hi');
+            return 'data';
+        }
+    </script>
+</head>
+<body>
+    {% for song in songs %}
+    <div class='songObject' title={{song.song_file.url}}>{{song.title}}</div>
+    {% endfor %}
+    <button id='playlistTest'>
+        {% for song in songs %}
+        <option class='playlistObject' title={{song.song_file.url}}>{{song.title}}</option>
+        {% endfor %}
+    </button>
+    {% block formcontent %}{% endblock formcontent %}
+</body>
+</html>

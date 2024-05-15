@@ -29,6 +29,7 @@ urlpatterns = [
     path('iframe/', iframe, name='iframe'),
     path('', home_view, name='home'),
     path("admin/", admin.site.urls),
+    path('iframetest/', ift_view, name='ift'),
 ]
 
 if settings.DEBUG is True:

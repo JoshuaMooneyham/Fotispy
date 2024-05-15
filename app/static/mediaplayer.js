@@ -1,71 +1,122 @@
-let pause = document.getElementById('pausebtn');
-let play = document.getElementById('playbtn');
-let player2 = document.getElementById('songtest');
-let progressBar = document.getElementById('slider');
-let volumeBar = document.getElementById('volume');
-let currentDisplay = document.getElementById('current-time');
-let totalDisplay = document.getElementById('total-duration');
-let mute = document.getElementById('mutebtn');
-let playlistbtn = document.getElementById('playlistTest');
-let playlist = [];
+$(function(){    
+    let player = document.getElementById('songtest');
+    let pause = document.getElementById('pausebtn');
+    let play = document.getElementById('playbtn');
+    let progressBar = document.getElementById('slider');
+    let volumeBar = document.getElementById('volume');
+    let currentDisplay = document.getElementById('current-time');
+    let totalDisplay = document.getElementById('total-duration');
+    let mute = document.getElementById('mutebtn');
+    let playlistbtn = document.getElementById('playlistTest');
+    let skip = document.getElementById('nextbtn');
+    let back = document.getElementById('prevbtn');
+    let title = document.getElementById('playing-title');
+    let artist = document.getElementById('playing-artist');
 
-function handlePlay() {
-    player2.play();
-    play.style.display = 'none';
-    pause.style.display = 'block';
-}
+    let songlist = $('.songObject')
+    console.log(songlist)
 
-function handlePause() {
-    player2.pause();
-    pause.style.display = 'none';
-    play.style.display = 'block';
-}
+    // let pause = document.getElementById('pausebtn');
+    // let play = document.getElementById('playbtn');
+    // let player = document.getElementById('songtest');
+    // let progressBar = document.getElementById('slider');
+    // let volumeBar = document.getElementById('volume');
+    // let currentDisplay = document.getElementById('current-time');
+    // let totalDisplay = document.getElementById('total-duration');
+    // let mute = document.getElementById('mutebtn');
+    // let playlistbtn = document.getElementById('playlistTest');
+    // let skip = document.getElementById('nextbtn');
+    // let back = document.getElementById('prevbtn');
+    // let title = document.getElementById('playing-title');
+    // let artist = document.getElementById('playing-artist');
+    // let songlist = document.querySelectorAll('.songObject');
+    let queue = [];
+    let currentSong = '';
 
-function handleLoad() {
-    handlePlay();
-    play.classList.remove('inactive');
-    pause.classList.remove('inactive');
-    currentDisplay.innerText = '0:00';
-    let minutes = Math.floor(player2.duration / 60)
-    let seconds = Math.floor(player2.duration - minutes*60)
-    totalDisplay.innerText = `${minutes}:${seconds < 10 ? '0'+seconds : seconds}`;
-}
+    function handlePlay() {
+        player.play();
+        play.style.display = 'none';
+        pause.style.display = 'block';
+    }
 
-function setVolume() {
-    player2.volume = volumeBar.value;
-    document.getElementById('mutebtnimg').src = player2.volume > .6 ? '/static/volume.png' : player2.volume > .3 ? '/static/volume (1).png' : player2.volume === 0 ? '/static/mute.png' : '/static/volume (2).png';
-}
+    function handlePause() {
+        player.pause();
+        pause.style.display = 'none';
+        play.style.display = 'block';
+    }
 
-function handleMute() {
-    volumeBar.value = volumeBar.value > 0 ? 0 : 1;
-    setVolume()
-}
+    function handleLoad() {
+        handlePlay();
+        play.classList.remove('inactive');
+        pause.classList.remove('inactive');
+        currentDisplay.innerText = '0:00';
+        let minutes = Math.floor(player.duration / 60)
+        let seconds = Math.floor(player.duration - minutes*60)
+        totalDisplay.innerText = `${minutes}:${seconds < 10 ? '0'+seconds : seconds}`;
+    }
 
-player2.onloadedmetadata = handleLoad
+    function setVolume() {
+        player.volume = volumeBar.value;
+        document.getElementById('mutebtnimg').src = player.volume > .6 ? '/static/volume.png' : player2.volume > .3 ? '/static/volume (1).png' : player2.volume === 0 ? '/static/mute.png' : '/static/volume (2).png';
+    }
 
-volumeBar.onchange = setVolume
+    function handleMute() {
+        volumeBar.value = volumeBar.value > 0 ? 0 : 1;
+        setVolume()
+    }
 
-volumeBar.onmousemove = setVolume
+    player.onloadedmetadata = handleLoad
 
-pause.onclick = handlePause
+    volumeBar.onchange = setVolume
 
-play.onclick = handlePlay
+    volumeBar.onmousemove = setVolume
 
-mute.onclick = handleMute
+    pause.onclick = handlePause
 
-player2.ontimeupdate = () => {
-    console.log(player.currentTime);
-    progressBar.value = player.currentTime === 0 ? 0 : (player.currentTime / player.duration * 100);
-    let minutes = Math.floor(player.currentTime / 60);
-    let seconds = Math.floor(player.currentTime - minutes*60)
-    currentDisplay.innerText = `${minutes}:${seconds < 10 ? '0'+seconds : seconds}`;
-}
+    play.onclick = handlePlay
 
-function loadSong(songObject) {
-    
-}
+    mute.onclick = handleMute
 
-playlistbtn.onclick = (e) => {
-    playlist = [...e.target.children];
-    console.log(playlist)
-}
+    player.ontimeupdate = () => {
+        progressBar.value = player.currentTime === 0 ? 0 : (player.currentTime / player.duration * 100);
+        let minutes = Math.floor(player.currentTime / 60);
+        let seconds = Math.floor(player.currentTime - minutes*60)
+        currentDisplay.innerText = `${minutes}:${seconds < 10 ? '0'+seconds : seconds}`;
+        if (player.currentTime === player.duration && queue.length > queue.indexOf(currentSong)) {
+            loadSong(queue[queue.indexOf(currentSong) + 1])
+        }
+    }
+
+    function loadSong(songObject) {
+        currentSong = songObject;
+        player.src = songObject.title;
+        title.innerText = songObject.innerText;
+        artist.innerText = songObject.title;
+        console.log(queue)
+        queue.indexOf(currentSong) + 1 < queue.length ? skip.classList.remove('inactive') : skip.classList.add('inactive');
+        queue.indexOf(currentSong) > 0 ? back.classList.remove('inactive') : back.classList.add('inactive');
+    }
+
+    playlistbtn.onclick = (e) => {
+        queue = [...e.target.children];
+        console.log(queue);
+        loadSong(queue[0]);
+    }
+
+    songlist.forEach((song) => {
+        song.addEventListener('click', (e)=> {
+            queue = [song];
+            loadSong(song);
+        })
+    })
+
+    skip.onclick = () => {
+        if (queue.indexOf(currentSong)+1 < queue.length) {
+        loadSong(queue[queue.indexOf(currentSong)+1]);
+        }
+    }
+
+    back.onclick = () => {
+        loadSong(queue[queue.indexOf(currentSong)-1]);
+    }
+})

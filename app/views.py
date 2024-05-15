@@ -68,3 +68,15 @@ def add_song_view(req: HttpRequest) -> HttpResponse:
 
 def iframe(req):
     return render(req, 'iframe.html')
+
+def ift_view(req):
+    songs = Song.objects.all()
+    form = AddSongForm()
+    if req.method == 'POST':
+        form = AddSongForm(req.POST, req.FILES)
+        print(f'Valid: {form.is_valid()}')
+        if form.is_valid():
+            form.save()
+            messages.success(req, 'Song Accepted')
+    context = {'songs': songs, 'form': form}
+    return render(req, 'add-song.html', context)
