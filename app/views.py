@@ -68,12 +68,13 @@ def add_song_view(req: HttpRequest) -> HttpResponse:
 
 def home_frame(req: HttpRequest) -> HttpResponse:
     songs = Song.objects.all()
-    form = AddSongForm()
+    form = NewPlaylistForm()
+    print(req)
     if req.method == 'POST':
-        form = AddSongForm(req.POST, req.FILES)
-        print(f'Valid: {form.is_valid()}')
-        if form.is_valid():
-            form.save()
-            messages.success(req, 'Song Accepted')
-    context = {'songs': songs, 'form': form}
-    return render(req, 'add-song.html', context)
+        Playlist.objects.create(name=req.POST.get('name'), description=req.POST.get('description'), created_by=req.user)
+        form = NewPlaylistForm()
+        # print(req.POST)
+        # if form.is_valid():
+            # form.save()
+    context = {'songs': songs, 'form': form, 'playlists': Playlist.objects.all()}
+    return render(req, 'add-playlist.html', context)

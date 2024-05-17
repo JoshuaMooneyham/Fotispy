@@ -1,24 +1,39 @@
-function buffer() {
+function buffer() { // <== Necessary to wait for iframe content to load fully
+
+    /* ==={ Iframe document setup }=== */
     let iframe = document.getElementById('iframe')
     let iframeDoc = iframe.contentDocument;
-    let player = document.getElementById('songtest');
-    let pause = document.getElementById('pausebtn');
-    let play = document.getElementById('playbtn');
-    let progressBar = document.getElementById('slider');
-    let volumeBar = document.getElementById('volume');
-    let currentDisplay = document.getElementById('current-time');
-    let totalDisplay = document.getElementById('total-duration');
-    let mute = document.getElementById('mutebtn');
-    let skip = document.getElementById('nextbtn');
-    let back = document.getElementById('prevbtn');
-    let title = document.getElementById('playing-title');
-    let artist = document.getElementById('playing-artist');
-    let songlist = iframeDoc.querySelectorAll('.songObject')
-    let playlistbtn = iframeDoc.getElementById('playlistTest');
 
+    /* ==={ Media Player }=== */
+    let player = document.getElementById('songtest');
+
+        /* ==={ Buttons }=== */
+        let pause = document.getElementById('pausebtn');
+        let play = document.getElementById('playbtn');
+        let mute = document.getElementById('mutebtn');
+        let skip = document.getElementById('nextbtn');
+        let back = document.getElementById('prevbtn');
+
+        /* ==={ Bars/Meters }=== */
+        let progressBar = document.getElementById('slider');
+        let volumeBar = document.getElementById('volume');
+        let currentDisplay = document.getElementById('current-time');
+        let totalDisplay = document.getElementById('total-duration');
+
+        /* ==={ Song Data }=== */
+        let title = document.getElementById('playing-title');
+        let artist = document.getElementById('playing-artist');
+
+    /* ==={ Song Objects }=== */ 
+    let songlist = iframeDoc.querySelectorAll('.songObject');
+    let playlistBtns = iframeDoc.querySelectorAll('.playlistBtn');
+
+    // ==={ Independent Variables }===
     let queue = [];
     let currentSong = '';
+    let lastVolume = 1;
 
+    /* ==={ Functions/Event Handlers }=== */ 
     function handlePlay() {
         player.play();
         play.style.display = 'none';
@@ -42,14 +57,26 @@ function buffer() {
     }
 
     function setVolume() {
+        lastVolume = player.volume;
         player.volume = volumeBar.value;
         document.getElementById('mutebtnimg').src = player.volume > .6 ? '/static/volume.png' : player.volume > .3 ? '/static/volume (1).png' : player.volume === 0 ? '/static/mute.png' : '/static/volume (2).png';
     }
 
     function handleMute() {
-        volumeBar.value = volumeBar.value > 0 ? 0 : 1;
+        volumeBar.value = volumeBar.value > 0 ? 0 : lastVolume < .2 ? .2 : lastVolume;
         setVolume()
     }
+
+    function loadSong(songObject) {
+        currentSong = songObject;
+        player.src = songObject.title;
+        title.innerText = songObject.innerText;
+        artist.innerText = songObject.classList[0];
+        queue.indexOf(currentSong) + 1 < queue.length ? skip.classList.remove('inactive') : skip.classList.add('inactive');
+        queue.indexOf(currentSong) > 0 ? back.classList.remove('inactive') : back.classList.add('inactive');
+    }
+
+    /* ==={ Events/Listeners }=== */ 
 
     player.onloadedmetadata = handleLoad
 
@@ -73,21 +100,12 @@ function buffer() {
         }
     }
 
-    function loadSong(songObject) {
-        currentSong = songObject;
-        player.src = songObject.title;
-        title.innerText = songObject.innerText;
-        artist.innerText = songObject.title;
-        console.log(queue)
-        queue.indexOf(currentSong) + 1 < queue.length ? skip.classList.remove('inactive') : skip.classList.add('inactive');
-        queue.indexOf(currentSong) > 0 ? back.classList.remove('inactive') : back.classList.add('inactive');
-    }
-
-    playlistbtn.onclick = (e) => {
-        queue = [...e.target.children];
-        console.log(queue);
-        loadSong(queue[0]);
-    }
+    playlistBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            queue = [...btn.children];
+            loadSong(queue[0]);
+        })
+    })
 
     songlist.forEach((song) => {
         song.addEventListener('click', (e)=> {

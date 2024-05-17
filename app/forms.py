@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from app.models import Song
+from app.models import *
 
 
 class CreateUserForm(UserCreationForm):
@@ -27,11 +27,25 @@ class AddSongForm(forms.ModelForm):
         else: 
             raise forms.ValidationError('Song already in database!')
 
-# class AddSongForm(forms.Form):
-#     song_file = forms.FileField()
+class NewPlaylistForm(forms.ModelForm):
+    class Meta:
+        model = Playlist
+        fields = ['name', 'description']
 
+    # def clean(self):
+    #     cleaned_data = super().clean()
+    #     # cleaned_data['created_by'] = user
+    #     print(cleaned_data)
+
+# class NewPlaylistForm(forms.Form):
+#     # def __init__(self, *args, **kwargs):
+#     #     self.request = kwargs.get("request")
+#     #     self.user = kwargs.get("user")
+#     name = models.CharField(max_length=50)
+#     description = models.TextField()
 #     def clean(self):
 #         cleaned_data = super().clean()
-#         print('made it here')
-#         print(cleaned_data)
+#         print(f'data: {cleaned_data}')
+#         cleaned_data['created_by'] = self.user
 #         return cleaned_data
+        
