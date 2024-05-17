@@ -18,10 +18,11 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include, re_path, URLPattern, URLResolver
+from django.views.static import serve
 from app.views import *
 
-urlpatterns = [
+urlpatterns: list[URLPattern|URLResolver] = [
     path("register/", AccountCreationView),
     path('login/', LogInView, name='login'),
     path('logout/', logoutView, name='logout'),
@@ -29,6 +30,8 @@ urlpatterns = [
     path('', home_view, name='home'),
     path("admin/", admin.site.urls),
     path('iframetest/', home_frame, name='ift'),
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 ]
 
 if settings.DEBUG is True:
