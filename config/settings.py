@@ -28,8 +28,8 @@ SECRET_KEY = 'django-insecure--61nwzy7@9d+xn7g6s17^)sxx7sp@sm60-d7g%&^vn_8*%_)31
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # ==={ HEROKU }===
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 
 # ==={ HEROKU }===
 # ALLOWED_HOSTS = []
@@ -51,7 +51,7 @@ INSTALLED_APPS = [
 # ==={ HEROKU }===
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -127,8 +127,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 # ==={ HEROKU }===
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = 'static/'
 
 # Default primary key field type

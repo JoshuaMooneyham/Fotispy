@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
 
 colors {
     color: #f7fff7
@@ -186,30 +187,53 @@ colors {
 #user-interface-wrapper {
     width: 100vw;
     height: 100vh;
-    /* background-color: #f7fff7; */
     background-color: #343434;
     display: flex;
+    flex-direction: column;
+}
+
+.ui-header {
+    width: 100vw;
+    height: 100px;
+    display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
+}
+
+.fotispy-icon {
+    height: 60px;
+}
+
+/* .fotispy-title {
+    font-family: Orbitron;
+    font-weight: 900;
+    color: white;
+    font-size: 3em;
+} */
+
+.accountBtn {
+    width: 271.09px;
+}
+
+.ui-container {
+    display: flex;
+    width: 100%;
+    height: calc(100% - 100px);
+    justify-content: space-between;
 }
 
 #playlists-container {
     background-color: lightblue;
-    height: 90%;
+    height: 100%;
     width: 32%;
     overflow-y: scroll;
     border-radius: 20px;
     scrollbar-width: none;
 }
 
-::-webkit-scrollbar {
-    appearance: none;
-    display: none;
-}
-
 #songs-container {
     background-color: lightcoral;
-    height: 90%;
+    height: 100%;
     width: 32%;
     overflow-y: scroll;
     border-radius: 20px;
@@ -218,7 +242,7 @@ colors {
 
 #other-container {
     background-color: lightgreen;
-    height: 90%;
+    height: 100%;
     width: 32%;
     border-radius: 20px;
 }
@@ -322,7 +346,6 @@ colors {
     background-color: gray;
     margin: 20px;
 }
-
 
 
 /* Audio tag styles */

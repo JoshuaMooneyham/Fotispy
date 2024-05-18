@@ -50,10 +50,10 @@ def logoutView(req: HttpRequest) -> HttpResponse:
 
 def home_view(req: HttpRequest) -> HttpResponse:
     songs = Song.objects.all()
-    print(songs[0].song_file.url)
-    context = {'songs': songs}
+    # print(songs[0].song_file.url)
+    # context = {'songs': songs}
 
-    return render(req, 'homepage.html', context)
+    return render(req, 'homepage.html')
 
 def add_song_view(req: HttpRequest) -> HttpResponse:
     form = AddSongForm()
@@ -68,22 +68,28 @@ def add_song_view(req: HttpRequest) -> HttpResponse:
 
 def home_frame(req: HttpRequest) -> HttpResponse:
     songs = Song.objects.all()
-    # form = NewPlaylistForm()
-    # print(req)
+    songForm = AddSongForm()
+    playlistForm = None
+    playlists = None
+    if req.user.is_authenticated:
+        playlistForm = NewPlaylistForm()
+        playlists = req.user.playlist_set.all()
+
     # if req.method == 'POST':
     #     Playlist.objects.create(name=req.POST.get('name'), description=req.POST.get('description'), created_by=req.user)
     #     form = NewPlaylistForm()
-    #     # print(req.POST)
-    #     # if form.is_valid():
-    #         # form.save()
+        # print(req.POST)
+        # if form.is_valid():
+            # form.save()
 
-    form = AddSongForm()
     if req.method == 'POST':
-        form = AddSongForm(req.POST, req.FILES)
-        print(f'Valid: {form.is_valid()}')
-        if form.is_valid():
-            form.save()
-            messages.success(req, 'Song Accepted')
+        if req.POST.get('Add Song'):
+            songForm = AddSongForm(req.POST, req.FILES)
+            if songForm.is_valid():
+                songForm.save()
+                messages.success(req, 'Song Accepted')
+        # elif req.POST.get('Add Playlist'):
 
-    context = {'songs': songs, 'form': form, 'playlists': Playlist.objects.all()}
+
+    context = {'songs': songs, 'playlistForm': playlistForm, 'songForm': songForm, 'playlists': playlists}
     return render(req, 'add-song.html', context)

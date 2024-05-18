@@ -1,9 +1,11 @@
 {% extends "homepageiframe.html" %}
 
 {% block formcontent %}
-<form action="" method='POST'>
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" name='Add Song'>
-</form>
+{% if playlistForm %}
+    <form action="" method='POST'>
+        {% csrf_token %}
+        {{playlistForm.as_p}}
+        <input type="submit" name='Add Playlist'>
+    </form>
+{% endif %}
 {% endblock formcontent %}
