@@ -1,3 +1,4 @@
+let TestVar;
 function buffer() { // <== Necessary to wait for iframe content to load fully
 
     /* ==={ Iframe document setup }=== */
@@ -90,6 +91,20 @@ function buffer() { // <== Necessary to wait for iframe content to load fully
 
     mute.onclick = handleMute
 
+    iframe.onchange = () => {
+        console.log('iframe refresh')
+    }
+
+    let test = iframeDoc.getElementById('songs-container');
+    test.onchange = () => {
+        console.log('test refreshed')
+    }
+
+    test.onclick = () => {
+        test.style.backgroundColor = 'black';
+        TestVar = 'black'
+    }
+
     player.ontimeupdate = () => {
         progressBar.value = player.currentTime === 0 ? 0 : (player.currentTime / player.duration * 100);
         let minutes = Math.floor(player.currentTime / 60);
@@ -102,7 +117,7 @@ function buffer() { // <== Necessary to wait for iframe content to load fully
 
     playlistBtns.forEach((btn) => {
         btn.addEventListener('click', () => {
-            queue = [...btn.children];
+            queue = [...btn.querySelectorAll('song')];
             loadSong(queue[0]);
         })
     })
@@ -124,5 +139,11 @@ function buffer() { // <== Necessary to wait for iframe content to load fully
         if (queue.indexOf(currentSong) > 0) {
         loadSong(queue[queue.indexOf(currentSong)-1]);
         }
+    }
+
+    console.log(typeof TestVar !== 'undefined');
+
+    if (typeof TestVar !== 'undefined'){
+        test.style.backgroundColor = TestVar
     }
 }

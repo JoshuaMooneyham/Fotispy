@@ -1,4 +1,4 @@
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -63,7 +63,6 @@ def add_song_view(req: HttpRequest) -> HttpResponse:
         if form.is_valid():
             form.save()
             messages.success(req, 'Song Accepted')
-
     return render(req, 'add-song.html', {'form': form})
 
 def home_frame(req: HttpRequest) -> HttpResponse:
@@ -88,8 +87,20 @@ def home_frame(req: HttpRequest) -> HttpResponse:
             if songForm.is_valid():
                 songForm.save()
                 messages.success(req, 'Song Accepted')
+        if req.POST.get('Add Playlist'):
+            print(req, req.POST)
+            Playlist.objects.create(name=req.POST.get('name'), description=req.POST.get('description'), created_by=req.user)
+            playlistForm = NewPlaylistForm() if req.user.is_authenticated else None
+
         # elif req.POST.get('Add Playlist'):
 
-
+    print(playlistForm)
     context = {'songs': songs, 'playlistForm': playlistForm, 'songForm': songForm, 'playlists': playlists}
-    return render(req, 'add-song.html', context)
+    return render(req, 'add-playlist.html', context)
+
+def delete_playlist(req: HttpRequest, playlistId: int) -> HttpResponseRedirect|HttpResponsePermanentRedirect:
+    try:
+        Playlist.objects.get(pk=f'{playlistId}').delete()
+    except:
+        messages.error(req, 'Playlist could not be found')
+    return redirect('home')

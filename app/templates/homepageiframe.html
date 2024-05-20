@@ -2,78 +2,81 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FotiSpy</title>
-    <link rel="stylesheet" href="{% static "styles.css" %}">
-    <script src="{% static 'script.js' %}" defer></script>
-</head>
-<body>
-    <div id='user-interface-wrapper'>
-        <header class='ui-header'>
-            <div class="icon-title">
-                {% comment %} <img class='fotispy-icon' src="{% static "FotiSpy Tilt Gradient.png" %}" alt="FotiSpy"> {% endcomment %}
-                {% comment %} <span class='fotispy-title'>FotiSpy</span> {% endcomment %}
-                <img class='fotispy-icon' src="{% static "FotiSpyLogoText.png" %}" alt="FotiSpy">
-            </div>
-            <input type="search">
-            <button class='accountBtn'>account</button>
-        </header>
-
-
-        <div class="ui-container">
-            <div id='playlists-container'>
-                <div id='gridifier'>
-                    <div class='playlist-wrapper'>
-                        <div id="new-playlist" class='playlist-button'>
-                            <div class='playlist-icon-wrapper'>
-                                <div id='new-playlist-icon'>+</div>
-                            </div>
-                            <div class='playlist-text-wrapper'>
-                                <p class='playlist-text'>New Playlist</p>
-                            </div>
-                        </div>
-                    </div>
-                    <button id="playlistBtn"></button>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FotiSpy</title>
+        <link rel="stylesheet" href="{% static "styles.css" %}">
+        <script src="{% static 'script.js' %}" defer></script>
+        <script src="https://kit.fontawesome.com/2734bda929.js" crossorigin="anonymous" defer></script>
+    </head>
+    <body>
+        <div id='user-interface-wrapper'>
+            <header class='ui-header'>
+                <div class="icon-title">
+                    {% comment %} <img class='fotispy-icon' src="{% static "FotiSpy Tilt Gradient.png" %}" alt="FotiSpy"> {% endcomment %}
+                    {% comment %} <span class='fotispy-title'>FotiSpy</span> {% endcomment %}
+                    <img class='fotispy-icon' src="{% static "FotiSpyLogoText.png" %}" alt="FotiSpy">
                 </div>
-                
-                {% for playlist in playlists %}
-                    <div class='gridifier'>
-                        <div class='playlist-wrapper' id='playlistTest'>
-                            <div class='playlist-button'>
+                <input type="search">
+                <button class='accountBtn'>account</button>
+            </header>
+
+
+            <div class="ui-container">
+                <div id='playlists-container'>
+                    <div id='gridifier'>
+                        <div class='playlist-wrapper'>
+                            <div id="new-playlist" class='playlist-button'>
                                 <div class='playlist-icon-wrapper'>
-                                    <div class='playlist-icon'>0</div>
+                                    <div id='new-playlist-icon'>+</div>
                                 </div>
                                 <div class='playlist-text-wrapper'>
-                                    <p class='playlist-text'>{{playlist.name}}</p>
-                                    <p class='playlist-song-count'>sawngs</p>
+                                    <p class='playlist-text'>New Playlist</p>
                                 </div>
                             </div>
                         </div>
-                        <button class='playlistBtn'>
-                            {% for song in playlist.songs.all %}
-                                <song class='songArtist' title={{song.song_file.url}} style='display: none'>{{song.title}}</song>
-                            {% endfor %}
-                        </button>
+                        <button id="playlistBtn"></button>
                     </div>
-                {% endfor %}
-            </div>
-
-            <div id='songs-container'>
-                {% for song in songs %}
-                <div class="song-wrapper">
-                    <div class='songObject' title={{song.song_file.url}}>{{song.title}}</div>
-                    <div>{% for artist in song.artist.all %}<span>{{artist.name}}</span>{% endfor %}</div>
-                    <div>Genre: {% for genre in song.genre.all %}<span>{{genre.name}} </span>{% endfor %}</div>
-                    <song class="{% for artist in song.artist.all %}{{artist}}{% endfor %}" title={{song.song_file.url}} style='display: none'>{{song.title}}</song>
+                    
+                    {% for playlist in playlists %}
+                        <div class='gridifier'>
+                            <div class='playlist-wrapper' id='playlistTest'>
+                                <div class='playlist-button'>
+                                    <div class='playlist-icon-wrapper'>
+                                        <div class='playlist-icon'>0</div>
+                                    </div>
+                                    <div class='playlist-text-wrapper'>
+                                        <p class='playlist-text'>{{playlist.name}}</p>
+                                        <p class='playlist-song-count'>sawngs</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='playlistBtn'>
+                                <button class='playnestTest'>D</button>
+                                {% for song in playlist.songs.all %}
+                                    <song class='songArtist' title={{song.song_file.url}} style='display: none'>{{song.title}}</song>
+                                {% endfor %}
+                                <button class='nestTest'>:</button>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            </div>
-            <div id='other-container'>
-                {% block formcontent %}{% endblock formcontent %}
+
+                <div id='songs-container'>
+                    {% for song in songs %}
+                    <div class="song-wrapper">
+                        <div class='songObject' title={{song.song_file.url}}>{{song.title}}</div>
+                        <div>{% for artist in song.artist.all %}<span>{{artist.name}}</span>{% endfor %}</div>
+                        <div>Genre: {% for genre in song.genre.all %}<span>{{genre.name}} </span>{% endfor %}</div>
+                        <song class="{% for artist in song.artist.all %}{{artist}}{% endfor %}" title={{song.song_file.url}} style='display: none'>{{song.title}}</song>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div id='other-container'>
+                    {% block formcontent %}{% endblock formcontent %}
+                </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>

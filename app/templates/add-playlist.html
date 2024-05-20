@@ -2,10 +2,34 @@
 
 {% block formcontent %}
 {% if playlistForm %}
-    <form action="" method='POST'>
-        {% csrf_token %}
-        {{playlistForm.as_p}}
-        <input type="submit" name='Add Playlist'>
-    </form>
+<div class="hidden" id='playlistHideToggle'>
+    <div id='playlistFormContainer'>
+        <div id="playlistFormWrapper">
+            <i class="fa-solid fa-xmark"></i>
+            <form id='playlistForm' action="" method='POST'>
+                {% csrf_token %}
+                {% comment %} <label class='playlistFormName' for="name">Title:
+                    {{playlistForm.name}}
+                </label> {% endcomment %}
+                <input class='playlistNameInput' type="text" maxlength='50' placeholder='Playlist Name' value="New Playlist" name='name' required>
+                {% comment %} <label class='playlistFormDesc' for="description">Description:
+                    {{playlistForm.description}}
+                </label> {% endcomment %}
+                <textarea maxlength='150' class='playlistDescInput' placeholder='Description (Optional)' name='description'></textarea>
+                {% comment %} <input type="hidden" name='created_by' value="{{req.user}}"> {% endcomment %}
+                <input id='submitPlaylist' type="submit" name='Add Playlist'>
+            </form>
+            <div class="evener"></div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if songForm %}
+<form action="" method='POST' enctype="multipart/form-data">
+    {% csrf_token %}
+    {{songForm.as_p}}
+    <input type="submit" name='Add Song'>
+</form>
 {% endif %}
 {% endblock formcontent %}

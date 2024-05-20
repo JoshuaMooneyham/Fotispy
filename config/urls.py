@@ -30,6 +30,7 @@ urlpatterns: list[URLPattern|URLResolver] = [
     path('', home_view, name='home'),
     path("admin/", admin.site.urls),
     path('iframetest/', home_frame, name='ift'),
+    path('playlists/delete/<int:playlistId>/', delete_playlist, name='deletePlaylist'),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 ]
