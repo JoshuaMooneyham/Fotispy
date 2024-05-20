@@ -11,9 +11,6 @@
     <script src="{% static "mediaplayer.js" %}" defer></script>
 </head>
 <body>
-    {% comment %} {% for message in messages %}
-    <span>{{message}}</span>
-    {% endfor %} {% endcomment %}
     <div id='iframe-container'>
         <iframe id='iframe' src="/iframetest/" onload='buffer()' frameborder="0"></iframe>
     </div>
