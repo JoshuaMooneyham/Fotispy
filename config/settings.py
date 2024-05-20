@@ -149,4 +149,4 @@ MEDIA_URL='media/'
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
