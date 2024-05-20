@@ -74,13 +74,6 @@ def home_frame(req: HttpRequest) -> HttpResponse:
         playlistForm = NewPlaylistForm()
         playlists = req.user.playlist_set.all()
 
-    # if req.method == 'POST':
-    #     Playlist.objects.create(name=req.POST.get('name'), description=req.POST.get('description'), created_by=req.user)
-    #     form = NewPlaylistForm()
-        # print(req.POST)
-        # if form.is_valid():
-            # form.save()
-
     if req.method == 'POST':
         if req.POST.get('Add Song'):
             songForm = AddSongForm(req.POST, req.FILES)
