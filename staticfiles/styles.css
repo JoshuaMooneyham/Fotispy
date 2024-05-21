@@ -230,10 +230,12 @@ colors {
 
 .fotispy-icon {
     height: 60px;
+    margin-left: 20px;
 }
 
 .accountBtn {
-    width: 271.09px;
+    width: 50px;
+    margin-right: 40px;
 }
 
 .ui-container {
@@ -637,11 +639,10 @@ colors {
     cursor: pointer;
 }
 
-.playlistDisplayDesc#text {
-    width: 200px;
-    height: 500px;
+.playlistDisplayDesc {
+    width: 97%;
     /* white-space: normal; */
-    background-color: red;
+    background-color: rgb(208, 208, 208);
     word-break: break-word;
 }
 /* 

@@ -127,11 +127,7 @@ def add_song_view(req: HttpRequest) -> HttpResponse:
 @allowed_users(allowed_roles=['Admin'])
 def delete_song_view(req, songKey):
     try:
-        song = Song.objects.get(pk=f'{songKey}')
-        print(song.song_file)
-        pathlib.Path(f'{song.song_file.url}').unlink()
-        print('IT WAS FOUND')
-        # song.delete()
+        song = Song.objects.get(pk=f'{songKey}').delete()
     except:
         print('failed altogether')
     # return redirect('home')
