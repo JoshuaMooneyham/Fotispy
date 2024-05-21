@@ -91,6 +91,16 @@ function buffer() { // <== Necessary to wait for iframe content to load fully
 
     mute.onclick = handleMute
 
+    testPlaylist = iframeDoc.getElementById('playlistPlayBtn');
+    try {
+        testPlaylist.onclick = () => {
+            queue = [...testPlaylist.querySelectorAll('song')];
+            loadSong(queue[0]);
+        }
+    } catch {
+        console.log('something broke')
+    }
+
     iframe.onchange = () => {
         console.log('iframe refresh')
     }
@@ -105,12 +115,12 @@ function buffer() { // <== Necessary to wait for iframe content to load fully
         }
     }
 
-    playlistBtns.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            queue = [...btn.querySelectorAll('song')];
-            loadSong(queue[0]);
-        })
-    })
+    // playlistBtns.forEach((btn) => {
+    //     btn.addEventListener('click', () => {
+    //         queue = [...btn.querySelectorAll('song')];
+    //         loadSong(queue[0]);
+    //     })
+    // })
 
     songlist.forEach((song) => {
         song.addEventListener('click', (e)=> {

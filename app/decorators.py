@@ -14,15 +14,17 @@ def allowed_users(allowed_roles=[]): # type: ignore
     def decorator(view_func): # type: ignore
         def wrapper_func(req, *args, **kwargs): # type: ignore
 
-            group = None
+            groups = []
             if req.user.groups.exists(): # type: ignore
-                group = req.user.groups.all()[0].name # type: ignore
+                groups = [i.name for i in req.user.groups.all()] # type: ignore
             
-            if group in allowed_roles:
-                return view_func(req, *args, **kwargs) # type: ignore
+            for group in groups:
+                if group in allowed_roles:
+                    return view_func(req, *args, **kwargs) # type: ignore
             else:
-                return HttpResponse('You are not authorized to view this page')
+                return HttpResponse('You must be signed in to an ADMIN account to view this page')
             
+
         return wrapper_func # type: ignore
     return decorator # type: ignore
 

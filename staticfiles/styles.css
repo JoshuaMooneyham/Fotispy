@@ -637,12 +637,19 @@ colors {
     cursor: pointer;
 }
 
-.evener {
-    /* height: 40px;
-    width: 40px;
-    outline: 1px green dashed; */
+.playlistDisplayDesc#text {
+    width: 200px;
+    height: 500px;
+    /* white-space: normal; */
+    background-color: red;
+    word-break: break-word;
 }
+/* 
 
+
+#other-container{
+    overflow: hidden;
+} */
 
 /* Audio tag styles */
 /* #songtest {

@@ -7,6 +7,8 @@ from django.contrib.auth.models import Group # type: ignore
 from django.contrib.auth.decorators import login_required 
 from app.forms import *
 from app.decorators import *
+import pathlib
+import os
 
 # Create your views here.
 
@@ -55,17 +57,6 @@ def logoutView(req: HttpRequest) -> HttpResponse:
 def home_view(req: HttpRequest) -> HttpResponse:
     return render(req, 'homepage.html')
 
-# ==={ Add Songs }===
-def add_song_view(req: HttpRequest) -> HttpResponse:
-    form = AddSongForm()
-    if req.method == 'POST':
-        form = AddSongForm(req.POST, req.FILES)
-        print(f'Valid: {form.is_valid()}')
-        if form.is_valid():
-            form.save()
-            messages.success(req, 'Song Accepted')
-    return render(req, 'add-song.html', {'form': form})
-
 # ==={ Homepage }===
 def home_frame(req: HttpRequest, playlistID:str) -> HttpResponse:
     songs = Song.objects.all()
@@ -79,6 +70,8 @@ def home_frame(req: HttpRequest, playlistID:str) -> HttpResponse:
         playlistInfo = Playlist.objects.get(pk=playlistID)
     except:
         playlistInfo = None
+
+    print(req.POST)
     if req.method == 'POST':
         if req.POST.get('Add Song'):
             songForm = AddSongForm(req.POST, req.FILES)
@@ -91,6 +84,14 @@ def home_frame(req: HttpRequest, playlistID:str) -> HttpResponse:
         if req.POST.get('Populate Playlist'):
             Playlist.objects.get(pk=req.POST.get('playlistKey')).songs.add(Song.objects.get(pk=req.POST.get('songKey'))) # type: ignore
             print('hi')
+        if req.POST.get('Update Playlist'):
+            try:
+                # updateList = Playlist.objects.get(pk=req.POST.get('playlistKey'))
+                playlistInfo.name = req.POST.get('name')
+                playlistInfo.description = req.POST.get('description')
+                playlistInfo.save()
+            except:
+                pass
 
 
     print(req.POST)
@@ -109,3 +110,29 @@ def delete_playlist(req: HttpRequest, playlistId: int) -> HttpResponseRedirect|H
 @login_required(login_url='login')
 def account_view(req): 
     return render(req, 'account-view.html', {'user': req.user})
+
+# ==={ Add Songs }===
+@allowed_users(allowed_roles=['Admin'])
+def add_song_view(req: HttpRequest) -> HttpResponse:
+    form = AddSongForm()
+    if req.method == 'POST':
+        form = AddSongForm(req.POST, req.FILES)
+        print(f'Valid: {form.is_valid()}')
+        if form.is_valid():
+            form.save()
+            messages.success(req, 'Song Accepted')
+    return render(req, 'add-song.html', {'form': form})
+
+# ==={ Delete Songs }===
+@allowed_users(allowed_roles=['Admin'])
+def delete_song_view(req, songKey):
+    try:
+        song = Song.objects.get(pk=f'{songKey}')
+        print(song.song_file)
+        pathlib.Path(f'{song.song_file.url}').unlink()
+        print('IT WAS FOUND')
+        # song.delete()
+    except:
+        print('failed altogether')
+    # return redirect('home')
+    return HttpResponse('waiting')

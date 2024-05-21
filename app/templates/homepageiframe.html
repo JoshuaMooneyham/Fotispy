@@ -112,12 +112,26 @@
                     {{test}} {% endcomment %}
                     
                     <h1>{{playlistInfo.name}}</h1>
-                    <p>{{playlistInfo.description}}</p>
-                    <button>play</button>
+                    <p class='playlistDisplayDesc'>{{playlistInfo.description}}</p>
+                    <button id='playlistPlayBtn'>play
+                    {% for song in playlistInfo.songs.all %}
+                        <song class='songArtist' title={{song.song_file.url}} style='display: none'>{{song.title}}</song>
+                    {% endfor %}
+                    </button>
                     {% for song in playlistInfo.songs.all %}
                         <song>{{song.title}}</song>
                     {% endfor %}
-                    <button>update playlist details</button>
+                    <button id='updateBtn'>update playlist details</button>
+                    <div class="form-wrapper">
+                        <form action="" method='POST' class='hidden' id='updatePlaylist'>
+                            {% csrf_token %}
+                            <input type="text" value="{{playlistInfo.name}}" required name="name" placeholder="Title" maxlength='30'>
+                            <textarea name="description" value="{{playlistInfo.description}}" placeholder='Description (Optional)' maxlength='200'></textarea>
+                            <input type="hidden" value="{{playlistInfo.pk}}" name='playlistKey'>
+                            <input type="submit" name='Update Playlist'>
+                        </form>
+                        <a href="/playlists/delete/{{playlistInfo.pk}}"><button>Delete</button></a>
+                    </div>
                 </div>
                 {% endif %}
             </div>

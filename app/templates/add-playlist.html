@@ -8,7 +8,7 @@
             <i class="fa-solid fa-xmark"></i>
             <form id='playlistForm' action="" method='POST'>
                 {% csrf_token %}
-                <input class='playlistNameInput' type="text" maxlength='50' placeholder='Playlist Name' value="New Playlist" name='name' required>
+                <input class='playlistNameInput' type="text" maxlength='30' placeholder='Playlist Name' value="New Playlist" name='name' required>
                 <textarea maxlength='150' class='playlistDescInput' placeholder='Description (Optional)' name='description'></textarea>
                 <input id='submitPlaylist' type="submit" name='Add Playlist'>
             </form>

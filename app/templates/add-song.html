@@ -1,12 +1,12 @@
-{% extends "homepageiframe.html" %}
+{% extends "boilerplate.html" %}
 
-{% block formcontent %}
+{% block content %}
 <form action="" method='POST' enctype="multipart/form-data">
     {% csrf_token %}
-    {{songForm.as_p}}
+    {{form.as_p}}
     {% comment %} <label for="song_file">Song File:</label>
     <input type="file", name='song_file', id='song_file' accept='audio/mpeg, audio/ogg'>
     <input type='text' name='title'> {% endcomment %}
     <input type="submit" name='Add Song'>
 </form>
-{% endblock formcontent %}
+{% endblock content %}

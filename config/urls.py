@@ -27,6 +27,7 @@ urlpatterns: list[URLPattern|URLResolver] = [
     path('logout/', logoutView, name='logout'),
     path("account/", account_view, name="account"),
     path('songs/add/', add_song_view, name='add_song'),
+    path('songs/delete/<int:songKey>/', delete_song_view, name='delete-song'),
     path('', home_view, name='home'),
     path("admin/", admin.site.urls),
     path('iframetest/<str:playlistID>/', home_frame, name='ift'),

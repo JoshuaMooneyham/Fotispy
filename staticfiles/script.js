@@ -37,3 +37,8 @@ try {
 } catch (err) {
 
 }
+
+let updatePlaylistBtn = document.getElementById('updateBtn');
+updatePlaylistBtn.onclick = () => {
+    document.getElementById('updatePlaylist').classList.remove('hidden');
+}
