@@ -108,7 +108,7 @@ def delete_playlist(req: HttpRequest, playlistId: int) -> HttpResponseRedirect|H
 
 # ==={ View Account }===
 @login_required(login_url='login')
-def account_view(req): 
+def account_view(req: HttpRequest) -> HttpResponse: 
     return render(req, 'account-view.html', {'user': req.user})
 
 # ==={ Add Songs }===
@@ -125,10 +125,10 @@ def add_song_view(req: HttpRequest) -> HttpResponse:
 
 # ==={ Delete Songs }===
 @allowed_users(allowed_roles=['Admin'])
-def delete_song_view(req, songKey):
+def delete_song_view(req:HttpRequest, songKey:int) -> HttpResponse:
     try:
-        song = Song.objects.get(pk=f'{songKey}').delete()
+        Song.objects.get(pk=f'{songKey}').delete()
     except:
         print('failed altogether')
-    # return redirect('home')
-    return HttpResponse('waiting')
+    return redirect('home')
+    # return HttpResponse('waiting')
