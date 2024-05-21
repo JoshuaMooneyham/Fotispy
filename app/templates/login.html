@@ -1,12 +1,24 @@
-<h1>Log In</h1>
+{% extends "boilerplate.html" %}
 
-<form method='POST' action="">
-    {% csrf_token %}
+{% block content %}
+    <div id='loginPage'>
+        <div id="loginFormPlate">
+            <h1 id='loginHeader'>Log In</h1>
 
-    <input type="text" name="username" placeholder="Username..." class="form-control">
-    <input type="password" name="password" placeholder="Password..." class="form-control" >
-    <input class="btn login_btn" type="submit" value="Login">
-</form>
-{% for message in messages %}
-    <p class='messages'>{{message}}</p>
-{% endfor %}
+            <form id='loginForm' method='POST' action="">
+                {% csrf_token %}
+                <div id='loginInputWrapper'>
+                    <input type="text" name="username" placeholder="Username" class="loginInput loginUsername">
+                    <input type="password" name="password" placeholder="Password" class="loginInput loginPassword" >
+                </div>
+                <div id='loginMessages'>
+                    {% for message in messages %}
+                    <p class='loginMessage'>{{message}}</p>
+                    {% endfor %}
+                </div>
+                <input id="loginFormBtn" type="submit" value="Login">
+                <p>Don't have an account? <a href="/register/">Create One</a></p>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

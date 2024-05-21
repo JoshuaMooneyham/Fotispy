@@ -1,4 +1,9 @@
-let TestVar;
+// ==={ Independent Variables }===
+// let TestVar;
+let queue = [];
+let currentSong = '';
+let lastVolume = 1;
+
 function buffer() { // <== Necessary to wait for iframe content to load fully
 
     /* ==={ Iframe document setup }=== */
@@ -26,13 +31,8 @@ function buffer() { // <== Necessary to wait for iframe content to load fully
         let artist = document.getElementById('playing-artist');
 
     /* ==={ Song Objects }=== */ 
-    let songlist = iframeDoc.querySelectorAll('.songObject');
+    let songlist = iframeDoc.querySelectorAll('.songPlayBtn');
     let playlistBtns = iframeDoc.querySelectorAll('.playlistBtn');
-
-    // ==={ Independent Variables }===
-    let queue = [];
-    let currentSong = '';
-    let lastVolume = 1;
 
     /* ==={ Functions/Event Handlers }=== */ 
     function handlePlay() {
@@ -95,16 +95,6 @@ function buffer() { // <== Necessary to wait for iframe content to load fully
         console.log('iframe refresh')
     }
 
-    let test = iframeDoc.getElementById('songs-container');
-    test.onchange = () => {
-        console.log('test refreshed')
-    }
-
-    test.onclick = () => {
-        test.style.backgroundColor = 'black';
-        TestVar = 'black'
-    }
-
     player.ontimeupdate = () => {
         progressBar.value = player.currentTime === 0 ? 0 : (player.currentTime / player.duration * 100);
         let minutes = Math.floor(player.currentTime / 60);
@@ -124,8 +114,8 @@ function buffer() { // <== Necessary to wait for iframe content to load fully
 
     songlist.forEach((song) => {
         song.addEventListener('click', (e)=> {
-            queue = [song];
-            loadSong(song);
+            queue = [...e.target.querySelectorAll('song')];
+            loadSong(queue[0]);
         })
     })
 
@@ -141,9 +131,18 @@ function buffer() { // <== Necessary to wait for iframe content to load fully
         }
     }
 
-    console.log(typeof TestVar !== 'undefined');
+    // let test = iframeDoc.getElementById('songs-container');
+    // test.onchange = () => {
+    //     console.log('test refreshed')
+    // }
 
-    if (typeof TestVar !== 'undefined'){
-        test.style.backgroundColor = TestVar
-    }
+    // test.onclick = () => {
+    //     test.style.backgroundColor = 'black';
+    //     TestVar = 'black'
+    // }
+    // console.log(typeof TestVar !== 'undefined');
+
+    // if (typeof TestVar !== 'undefined'){
+    //     test.style.backgroundColor = TestVar
+    // }
 }

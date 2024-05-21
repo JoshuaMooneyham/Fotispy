@@ -1,0 +1,8 @@
+{% extends "boilerplate.html" %}
+
+{% block content %}
+<h1>Hello {{user.username}}</h1>
+<button>Update account info</button>
+<button>view playlists</button>
+<a href="{% url "logout" %}"><button>logout</button></a>
+{% endblock content %}

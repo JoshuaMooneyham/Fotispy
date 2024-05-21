@@ -11,8 +11,14 @@
     <script src="{% static "mediaplayer.js" %}" defer></script>
 </head>
 <body>
+    <header class='ui-header'>
+        <div class="icon-title">
+            <img class='fotispy-icon' src="{% static "images/FotispyLogoText.png" %}" alt="FotiSpy">
+        </div>
+        <a href="{% url "account" %}"><button class='accountBtn'>account</button></a>
+    </header>
     <div id='iframe-container'>
-        <iframe id='iframe' src="/iframetest/" onload='buffer()' frameborder="0"></iframe>
+        <iframe id='iframe' src="{% url "ift" 'na' %}" onload='buffer()' frameborder="0"></iframe>
     </div>
     {% block content %}{% endblock content %}
 </body>

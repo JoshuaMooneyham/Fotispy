@@ -15,25 +15,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.conf import settings
-from django.conf.urls.static import static
-from django.contrib import admin
-from django.urls import path, include, re_path, URLPattern, URLResolver
-from django.views.static import serve
+from django.conf import settings  # type: ignore
+from django.contrib import admin # type: ignore
+from django.urls import path, re_path, URLPattern, URLResolver # type: ignore
+from django.views.static import serve # type: ignore
 from app.views import *
 
 urlpatterns: list[URLPattern|URLResolver] = [
     path("register/", AccountCreationView),
     path('login/', LogInView, name='login'),
     path('logout/', logoutView, name='logout'),
+    path("account/", account_view, name="account"),
     path('songs/add/', add_song_view, name='add_song'),
     path('', home_view, name='home'),
     path("admin/", admin.site.urls),
-    path('iframetest/', home_frame, name='ift'),
+    path('iframetest/<str:playlistID>/', home_frame, name='ift'),
     path('playlists/delete/<int:playlistId>/', delete_playlist, name='deletePlaylist'),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 ]
-
-# if settings.DEBUG is True:
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

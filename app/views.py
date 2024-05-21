@@ -1,14 +1,16 @@
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import Group
-from django.contrib.auth.decorators import login_required
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect # type: ignore
+from django.shortcuts import render, redirect # type: ignore
+from django.contrib import messages # type: ignore
+from django.contrib.auth import authenticate, login, logout # type: ignore
+# from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import Group # type: ignore
+from django.contrib.auth.decorators import login_required 
 from app.forms import *
 from app.decorators import *
 
 # Create your views here.
+
+# ==={ Create Account }===
 @unauthenticated_user
 def AccountCreationView(req: HttpRequest) -> HttpResponse:
     form = CreateUserForm()
@@ -16,7 +18,6 @@ def AccountCreationView(req: HttpRequest) -> HttpResponse:
         form = CreateUserForm(req.POST)
         if form.is_valid():
             user = form.save()
-            username = form.cleaned_data.get('username')
 
             group = Group.objects.get(name='Standard')
             user.groups.add(group)
@@ -28,6 +29,7 @@ def AccountCreationView(req: HttpRequest) -> HttpResponse:
     context = {"form": form}
     return render(req, "register.html", context)
 
+# ==={ Log In }===
 @unauthenticated_user
 def LogInView(req: HttpRequest) -> HttpResponse:
     if req.method == 'POST':
@@ -44,17 +46,16 @@ def LogInView(req: HttpRequest) -> HttpResponse:
 
     return render(req, 'login.html')
 
+# ==={ Log Out }===
 def logoutView(req: HttpRequest) -> HttpResponse:
     logout(req)
     return redirect('login')
 
+# ==={ Media Player }===
 def home_view(req: HttpRequest) -> HttpResponse:
-    songs = Song.objects.all()
-    # print(songs[0].song_file.url)
-    # context = {'songs': songs}
-
     return render(req, 'homepage.html')
 
+# ==={ Add Songs }===
 def add_song_view(req: HttpRequest) -> HttpResponse:
     form = AddSongForm()
     if req.method == 'POST':
@@ -65,15 +66,19 @@ def add_song_view(req: HttpRequest) -> HttpResponse:
             messages.success(req, 'Song Accepted')
     return render(req, 'add-song.html', {'form': form})
 
-def home_frame(req: HttpRequest) -> HttpResponse:
+# ==={ Homepage }===
+def home_frame(req: HttpRequest, playlistID:str) -> HttpResponse:
     songs = Song.objects.all()
     songForm = AddSongForm()
     playlistForm = None
     playlists = None
     if req.user.is_authenticated:
         playlistForm = NewPlaylistForm()
-        playlists = req.user.playlist_set.all()
-
+        playlists = req.user.playlist_set.all() # type: ignore
+    try:
+        playlistInfo = Playlist.objects.get(pk=playlistID)
+    except:
+        playlistInfo = None
     if req.method == 'POST':
         if req.POST.get('Add Song'):
             songForm = AddSongForm(req.POST, req.FILES)
@@ -81,19 +86,26 @@ def home_frame(req: HttpRequest) -> HttpResponse:
                 songForm.save()
                 messages.success(req, 'Song Accepted')
         if req.POST.get('Add Playlist'):
-            print(req, req.POST)
             Playlist.objects.create(name=req.POST.get('name'), description=req.POST.get('description'), created_by=req.user)
             playlistForm = NewPlaylistForm() if req.user.is_authenticated else None
+        if req.POST.get('Populate Playlist'):
+            Playlist.objects.get(pk=req.POST.get('playlistKey')).songs.add(Song.objects.get(pk=req.POST.get('songKey'))) # type: ignore
+            print('hi')
 
-        # elif req.POST.get('Add Playlist'):
 
-    print(playlistForm)
-    context = {'songs': songs, 'playlistForm': playlistForm, 'songForm': songForm, 'playlists': playlists}
-    return render(req, 'add-playlist.html', context)
+    print(req.POST)
+    context = {'songs': songs, 'playlistForm': playlistForm, 'songForm': songForm, 'playlists': playlists, 'playlistInfo': playlistInfo} # type: ignore
+    return render(req, 'add-playlist.html', context) # type: ignore
 
+# ==={ Playlist Deletion }===
 def delete_playlist(req: HttpRequest, playlistId: int) -> HttpResponseRedirect|HttpResponsePermanentRedirect:
     try:
         Playlist.objects.get(pk=f'{playlistId}').delete()
     except:
         messages.error(req, 'Playlist could not be found')
-    return redirect('home')
+    return redirect('/iframetest/none')
+
+# ==={ View Account }===
+@login_required(login_url='login')
+def account_view(req): 
+    return render(req, 'account-view.html', {'user': req.user})
