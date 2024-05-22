@@ -7,8 +7,6 @@ from django.contrib.auth.models import Group # type: ignore
 from django.contrib.auth.decorators import login_required 
 from app.forms import *
 from app.decorators import *
-import pathlib
-import os
 
 # Create your views here.
 
@@ -34,6 +32,8 @@ def AccountCreationView(req: HttpRequest) -> HttpResponse:
 # ==={ Log In }===
 @unauthenticated_user
 def LogInView(req: HttpRequest) -> HttpResponse:
+    if req.method=='GET':
+        print('hello', req.GET)
     if req.method == 'POST':
         username = req.POST.get('username')
         password = req.POST.get('password')

@@ -39,6 +39,40 @@ try {
 }
 
 let updatePlaylistBtn = document.getElementById('updateBtn');
-updatePlaylistBtn.onclick = () => {
-    document.getElementById('updatePlaylist').classList.remove('hidden');
+try {
+    updatePlaylistBtn.onclick = () => {
+        document.getElementById('updatePlaylist').classList.remove('hidden');
+    }
+} catch {
+    console.log('No Playlist Yet');
 }
+
+let addToPlaylistBtns = [...document.getElementsByClassName('ellipsis-box')]
+addToPlaylistBtns.forEach((btn) => {
+    btn.onclick = () => {
+        btn.parentElement.querySelector('.playlistPopulationAnchor').classList.toggle('hidden');
+        btn.parentElement.querySelector('.playlistPopulationAnchor').querySelector('.playlistPopulationClose').onclick = () => {
+            btn.parentElement.querySelector('.playlistPopulationAnchor').classList.add('hidden');
+        }
+    }
+})
+
+let popForms = [...document.getElementsByClassName('playlistPopulationForm')];
+
+popForms.forEach((form) => {
+    form.querySelector('select').onchange = (e) => {
+        if (e.target.value !== 'invalid') {
+        e.target.parentElement.querySelector('.real').classList.remove('hidden')
+        e.target.parentElement.querySelector('.dummy').classList.add('hidden')
+        }
+    }
+})
+
+// function checkAddToPlaylist(e) {
+//     console.log(e);
+//     if (formObj.PopulatePlaylist.value !== '') {
+//         return true
+//     } else {
+//         return false
+//     }
+// }

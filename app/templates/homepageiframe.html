@@ -86,13 +86,16 @@
                             <div class='songGenrePlaylistBtn'>
                                 <div class='songGenres'>{% for genre in song.genre.all %}<span class='genreTag'>{{genre.name}}</span>{% endfor %}</div>
                                 <div class='ellipsis-box'><i class="fa-solid fa-ellipsis-vertical"></i></div>
-                                <div class='letsTry'>
+                                <div class='playlistPopulationAnchor hidden'>
                                     <form class='playlistPopulationForm' action="" method='POST'>
                                         {% csrf_token %}
                                         <input type="hidden" value="{{song.pk}}" name='songKey'>
-                                        <select name='playlistKey' type="">
+                                        <select name='playlistKey' class='addToPlaylistDropdown'>
+                                            <option value="invalid" selected hidden disabled>Select Playlist</option>
                                             {% for playlist in playlists %}<option value="{{playlist.pk}}">{{playlist.name}}</option>{% endfor %}
-                                        <input type='submit' name='Populate Playlist'>
+                                        <input type='submit' name='Populate Playlist' value='Add' class='real addToPlaylistSubmit hidden'>
+                                        <button class="dummy addToPlaylistSubmit" onclick='return false'>Add</button>
+                                        <i class="fa-solid fa-xmark playlistPopulationClose"></i>
                                     </form>
                                 </div>
                             </div>
