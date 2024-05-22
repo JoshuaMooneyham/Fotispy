@@ -1,6 +1,6 @@
-Here are the baseline requirements. Your application must:
 
-Allow Users to:
+Here are the baseline requirements. Your application must allow Users to:
+
     [x] sign-up
     [x] login
     [x] logout
