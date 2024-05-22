@@ -13,7 +13,6 @@ colors {
     padding: 0;
     margin: 0;
     /* outline: red dashed 1px; */
-    backface-visibility: hidden;
 }
 
 /* ==={ Log In }=== */
@@ -448,7 +447,7 @@ colors {
 }
 
 .song-wrapper {
-    height: 59px;
+    height: 60px;
     /* background-color: rgba(0, 179, 207, 0.13); */
     /* margin: 20px; */
     border-bottom: 1px solid #c7c7c7;
@@ -485,13 +484,15 @@ colors {
 
 .songGenrePlaylistBtn {
     display: flex;
-    gap: 5px;
+    align-items: center;
+    /* gap: 5px; */
 }
 
 .songGenres {
     display: flex;
     gap: 5px;
     max-height: 23px;
+    margin-right: 5px;
 }
 
 .genreTag {
@@ -513,18 +514,67 @@ colors {
     position: relative;
 }
 
-/* .letsTry {
+.playlistPopulationAnchor {
     position: relative;
-    outline: red 1px dashed;
-    right: 100px;
-    bottom: 100px;
-} */
+    /* outline: red 1px dashed; */
+    height: 60px;
+    right: 325px;
+} 
 
-/* .playlistPopulationForm {
+.playlistPopulationForm {
+    background-color: #1e1e1e;
+    min-width: 200px;
+    width: 300px;
+    height: 60px;
+    display: flex;
+    /* outline: blue dashed 1px; */
     position: absolute;
     top: 0;
-    z-index: 20;
-} */
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    transition: .3s;
+}
+
+.addToPlaylistDropdown {
+    background-color: #343434;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 10px;
+    min-width: 100px;
+    width: 100%;
+    max-width: 200px;
+    color: rgb(228, 228, 228);
+    font-size: 1em;
+}
+
+.addToPlaylistDropdown:focus {
+    outline: none;
+}
+
+.addToPlaylistDropdown:hover {
+    background-color: #464646;
+}
+
+.addToPlaylistSubmit {
+    background-color: #0074a2;
+    color: rgb(235, 234, 234);
+    width: 35px;
+    height: 20px;
+    border: none;
+    border-radius: 5px;
+    transition: .3s;
+}
+
+.dummy {
+    background-color: #464646;
+}
+
+.real:hover {
+    background-color: #0087bd;
+    cursor: pointer;
+}
 
 .fa-ellipsis-vertical {
     margin-top: 1.5px;
@@ -645,6 +695,29 @@ colors {
     background-color: rgb(208, 208, 208);
     word-break: break-word;
 }
+
+.playlistPopulationClose {
+    padding: 0;
+    margin: 0;
+    margin-right: 10px;
+    width: fit-content;
+    height: fit-content;
+    appearance: none;
+    /* border: red 1px solid; */
+    color: #f7fff7;
+    font-size: 1em;
+    /* height: 20px;
+    width: 20px; */
+}
+
+.playlistPopulationClose:hover {
+    background-color: transparent;
+    opacity: 60%;
+}
+
+
+
+
 /* 
 
 
