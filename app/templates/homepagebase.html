@@ -8,6 +8,7 @@
     <title>Fotispy</title>
     <link rel="icon" href="{% static "images/FotiSpy Tilt Gradient.png" %}">
     <link rel="stylesheet" href="{% static "styles.css" %}">
+    <script src="https://kit.fontawesome.com/2734bda929.js" crossorigin="anonymous" defer></script>
     <script src="{% static "mediaplayer.js" %}" defer></script>
 </head>
 <body>
@@ -15,9 +16,11 @@
         <div class="icon-title">
             <img class='fotispy-icon' src="{% static "images/FotispyLogoText.png" %}" alt="FotiSpy">
         </div>
-        <a href="{% url "account" %}"><button class='accountBtn'>account</button></a>
+        {% if user %}<a href="{% url "account" %}"><i class="fa-solid fa-circle-user accountBtn"></i></a>{% else %}<a href="{% url "login" %}"><i class="fa-solid fa-arrow-right-to-bracket accountBtn"></i></a>{% endif %}
+        {% comment %} <a href="{% url "account" %}"><i class="fa-solid fa-circle-user accountBtn"></i></a> {% endcomment %}
     </header>
     <div id='iframe-container'>
+        {% comment %} <iframe id='iframe' src="{% url "ift" 'na' %}" onload='buffer()' frameborder="0"></iframe> {% endcomment %}
         <iframe id='iframe' src="{% url "ift" 'na' %}" onload='buffer()' frameborder="0"></iframe>
     </div>
     {% block content %}{% endblock content %}

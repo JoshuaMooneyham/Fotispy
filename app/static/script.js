@@ -68,11 +68,19 @@ popForms.forEach((form) => {
     }
 })
 
-// function checkAddToPlaylist(e) {
-//     console.log(e);
-//     if (formObj.PopulatePlaylist.value !== '') {
-//         return true
-//     } else {
-//         return false
-//     }
-// }
+let playlistFormBtn = document.getElementById('updateBtn');
+let closePlaylistForm = document.getElementById('closeUpdatePlaylist');
+let playlistViewHeader = document.getElementById('playlistViewHeader');
+let playlistUpdateForm = document.getElementById('playlistViewFormWrapper');
+try {
+playlistFormBtn.onclick = () => {
+    playlistViewHeader.classList.add('hidden');
+    playlistUpdateForm.classList.remove('hidden');
+    closePlaylistForm.onclick = () => {
+        playlistViewHeader.classList.remove('hidden');
+        playlistUpdateForm.classList.add('hidden');
+    }
+}
+} catch {
+    
+}

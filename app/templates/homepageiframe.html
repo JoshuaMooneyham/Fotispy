@@ -43,7 +43,7 @@
                         
                         {% for playlist in playlists %}
                             <div class='gridifier'>
-                                <div class='playlist-wrapper' id='playlistTest'>
+                                <div class='playlist-wrapper'>
                                     <div class='playlist-button'>
                                         <div class='playlist-icon-wrapper'>
                                             <div class='playlist-icon'>0</div>
@@ -54,12 +54,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="/iframetest/0{{playlist.pk}}" class='playlistBtn'>{% comment %}<div class='playlistBtn'>{% endcomment %}
+                                <a href="/iframetest/{{playlist.pk}}" class='playlistBtn'>
                                     {% comment %} <button class='playnestTest'>D</button> {% endcomment %}
                                     {% for song in playlist.songs.all %}
                                         <song class='songArtist' title={{song.song_file.url}} style='display: none'>{{song.title}}</song>
                                     {% endfor %}
-                                    {% comment %} <button class='nestTest'>:</button> {% endcomment %}
                                 </a>
                             </div>
                         {% endfor %}
@@ -109,31 +108,56 @@
                 </div>
                 {% if playlistInfo %}
                 <div class='br'></div>
-                <div id='other-container'>
-                    {% comment %} {% block formcontent %}{% endblock formcontent %}
-                    <a href="/playlists/delete/202"><button>test</button></a>
-                    {{test}} {% endcomment %}
-                    
-                    <h1>{{playlistInfo.name}}</h1>
-                    <p class='playlistDisplayDesc'>{{playlistInfo.description}}</p>
-                    <button id='playlistPlayBtn'>play
-                    {% for song in playlistInfo.songs.all %}
-                        <song class='songArtist' title={{song.song_file.url}} style='display: none'>{{song.title}}</song>
-                    {% endfor %}
-                    </button>
-                    {% for song in playlistInfo.songs.all %}
-                        <song>{{song.title}}</song>
-                    {% endfor %}
-                    <button id='updateBtn'>update playlist details</button>
-                    <div class="form-wrapper">
-                        <form action="" method='POST' class='hidden' id='updatePlaylist'>
+                <div id='playlist-view-container'>
+                    <div id="playlistViewHeader" class='playlistViewHeaderForm'>
+                        <i id='updateBtn' class="fa-solid fa-pen-to-square"></i>
+                        <h1 id='playlistViewTitle'>{{playlistInfo.name}}</h1>
+                        <p id='playlistViewDesc'>{{playlistInfo.description}}</p>
+                    </div>
+                    <div id="playlistViewFormWrapper" class='hidden'>
+                        <form action="" method='POST' class='playlistViewHeaderForm' id='updatePlaylist'> {% comment "hidden here" %}{% endcomment %}
                             {% csrf_token %}
-                            <input type="text" value="{{playlistInfo.name}}" required name="name" placeholder="Title" maxlength='30'>
-                            <textarea name="description" value="{{playlistInfo.description}}" placeholder='Description (Optional)' maxlength='200'></textarea>
-                            <input type="hidden" value="{{playlistInfo.pk}}" name='playlistKey'>
-                            <input type="submit" name='Update Playlist'>
+                            <div id='closeUpdateButtonContainer'>
+                                <i id='closeUpdatePlaylist' class="fa-solid fa-xmark"></i>
+                            </div>
+                            <div id="inputsBtns">
+                                <div id="inputs">
+                                    <input id='playlistViewTitleForm' type="text" value="{{playlistInfo.name}}" required name="name" placeholder="Title" maxlength='30'>
+                                    <textarea id='playlistViewDescForm' name="description" placeholder='Description (Optional)' maxlength='150'>{{playlistInfo.description}}</textarea>
+                                    <input type="hidden" value="{{playlistInfo.pk}}" name='playlistKey'>
+                                </div>
+                                <div id="btns">
+                                    <input id='submitUpdate' type="submit" name='Update Playlist' value='Update'>
+                                    <a id='deletePlaylist' href="/playlists/delete/{{playlistInfo.pk}}">Delete</a>
+                                </div>
+                            </div>
                         </form>
-                        <a href="/playlists/delete/{{playlistInfo.pk}}"><button>Delete</button></a>
+                    </div>
+                    {% comment %} <div id='pvschAnchor'>
+                        <p id='pvsch'>songs</p>
+                    </div> {% endcomment %}
+                    <div id='playlistViewSongContainer'>
+                        {% for song in playlistInfo.songs.all %}
+                            <form method='POST' action='' class='playlistViewSong'>
+                                {% csrf_token %}
+                                <div class='playlistViewArtistTitle'>
+                                    <p class='playlistViewTitle'>{{song.title}}</p>
+                                    {% for artist in song.artist.all %}
+                                        <p class='playlistViewArtist'>{{artist.name}}</p>
+                                    {% endfor %}
+                                </div>
+                                <input name='removeSongKey' type="hidden" value="{{song.pk}}">
+                                <input name='removeSongPlaylistKey' type="hidden" value="{{playlistInfo.pk}}">
+                                <button type="submit" name='Remove Song' value='Submit' class='minusBtn'><i class="fa-solid fa-circle-minus"></i></button>
+                            </form>
+                        {% endfor %}
+                    </div>
+                    <div id='playlistPlayBtn'>
+                        <i class="fa-solid fa-circle-play">
+                            {% for song in playlistInfo.songs.all %}
+                                <song class="{% for artist in song.artist.all %}{{artist.name}}{% endfor %}" title={{song.song_file.url}} style='display: none'>{{song.title}}</song>
+                            {% endfor %}
+                        </i>
                     </div>
                 </div>
                 {% endif %}

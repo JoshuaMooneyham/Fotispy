@@ -55,7 +55,8 @@ def logoutView(req: HttpRequest) -> HttpResponse:
 
 # ==={ Media Player }===
 def home_view(req: HttpRequest) -> HttpResponse:
-    return render(req, 'homepage.html')
+    context = {'user': req.user if req.user.is_authenticated else None}
+    return render(req, 'homepage.html', context)
 
 # ==={ Homepage }===
 def home_frame(req: HttpRequest, playlistID:str) -> HttpResponse:
@@ -71,7 +72,7 @@ def home_frame(req: HttpRequest, playlistID:str) -> HttpResponse:
     except:
         playlistInfo = None
 
-    print(req.POST)
+    # print(req.POST)
     if req.method == 'POST':
         if req.POST.get('Add Song'):
             songForm = AddSongForm(req.POST, req.FILES)
@@ -83,7 +84,6 @@ def home_frame(req: HttpRequest, playlistID:str) -> HttpResponse:
             playlistForm = NewPlaylistForm() if req.user.is_authenticated else None
         if req.POST.get('Populate Playlist'):
             Playlist.objects.get(pk=req.POST.get('playlistKey')).songs.add(Song.objects.get(pk=req.POST.get('songKey'))) # type: ignore
-            print('hi')
         if req.POST.get('Update Playlist'):
             try:
                 # updateList = Playlist.objects.get(pk=req.POST.get('playlistKey'))
@@ -92,9 +92,11 @@ def home_frame(req: HttpRequest, playlistID:str) -> HttpResponse:
                 playlistInfo.save()
             except:
                 pass
+        if req.POST.get('Remove Song'):
+            Playlist.objects.get(pk=req.POST.get('removeSongPlaylistKey')).songs.remove(Song.objects.get(pk=req.POST.get('removeSongKey')))
 
 
-    print(req.POST)
+    # print(req.POST)
     context = {'songs': songs, 'playlistForm': playlistForm, 'songForm': songForm, 'playlists': playlists, 'playlistInfo': playlistInfo} # type: ignore
     return render(req, 'add-playlist.html', context) # type: ignore
 
