@@ -1,6 +1,16 @@
-{% extends "boilerplate.html" %}
+{% load static %}
 
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static "login.css" %}">
+    <link rel="icon" href="{% static "images/FotiSpy Tilt Gradient.png" %}">
+    <script src="https://kit.fontawesome.com/2734bda929.js" crossorigin="anonymous" defer></script>
+</head>
+<body>
     <div id='loginPage'>
         <div id="loginFormPlate">
             <h1 id='loginHeader'>Log In</h1>
@@ -8,17 +18,24 @@
             <form id='loginForm' method='POST' action="">
                 {% csrf_token %}
                 <div id='loginInputWrapper'>
-                    <input type="text" name="username" placeholder="Username" class="loginInput loginUsername">
-                    <input type="password" name="password" placeholder="Password" class="loginInput loginPassword" >
-                </div>
-                <div id='loginMessages'>
-                    {% for message in messages %}
-                    <p class='loginMessage'>{{message}}</p>
-                    {% endfor %}
+                    <div id="usernameInputWrap">
+                        <i id='usernameInputIcon' class='fa-solid fa-user'></i>
+                        <input type="text" name="username" placeholder="Username" class="loginInput loginUsername">
+                    </div>
+                    <div id="passwordInputWrap">
+                        <i id='passwordInputIcon' class="fa-solid fa-lock"></i>
+                        <input type="password" name="password" placeholder="Password" class="loginInput loginPassword" >
+                    </div>
                 </div>
                 <input id="loginFormBtn" type="submit" value="Login">
-                <p>Don't have an account? <a href="/register/">Create One</a></p>
+                <div id='loginMessages'>
+                    {% for message in messages %}
+                    <p class='loginMessage'>*{{message}}</p>
+                    {% endfor %}
+                </div>
             </form>
+            <p>Don't have an account? <a href="/register/">Create One</a></p>
         </div>
     </div>
-{% endblock content %}
+</body>
+</html>

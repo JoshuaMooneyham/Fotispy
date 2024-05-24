@@ -16,31 +16,6 @@ colors {
     font-family: Montserrat;
 }
 
-/* ==={ Log In }=== */
-#loginPage {
-    background-color: #1e1e1e;
-    background-color: #0074a2;
-    background: radial-gradient(#0074a2, #1e1e1e); 
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#loginFormPlate {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #EFEFEF;
-    width: 30%;
-    height: 80%;
-    gap: 20px;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
-}
-
 /* ==={ Media Player Styling }=== */
 
 #media-player {
@@ -836,18 +811,19 @@ colors {
 
 #inputsBtns {
     display: flex;
-    /* gap: 10px; */
 }
 
 #inputs {
     display: flex;
     flex-direction: column;
-    /* outline: red 1px dashed; */
     width: 80%;
 }
 
+#playlistViewTitle {
+    font-size: 1.7em;
+}
+
 #playlistViewTitleForm {
-    /* height: 30px; */
     padding: 5px;
     padding-left: 10px;
     font-size: 1em;
@@ -918,4 +894,161 @@ colors {
 
 #deletePlaylist:hover {
     background-color: rgb(245, 93, 93);
+}
+
+#accountView {
+    width: 100vw;
+    height: 100vh;
+    background-color: #1e1e1e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#accountViewPlate {
+    background-color: rgb(210, 210, 210);
+    height: 90%;
+    width: 70%;;
+    border-radius: 20px;
+}
+
+#accountViewHeaderWrapper {
+height: 25%;
+display: flex;
+flex-direction: column;
+justify-content: space-evenly;
+align-items: center;
+}
+
+#goHomeWrapper {
+    display: flex;
+    width: 90%;
+    justify-content: flex-end;
+}
+
+#goHomeBtn {
+    font-size: 1.5em;
+    color: #1e1e1e;
+    transition: .3s;
+}
+
+#goHomeBtn:hover {
+    color: #5c5c5c;
+}
+
+#accViewBtns {
+    display: flex;
+    gap: 30px;
+}
+
+.accountViewBtn {
+    width: 130px;
+    height: 50px;
+    border-radius: 5px;
+    border: none;
+    background-color: #0074a2;
+    color: white;
+    font-size: .9em;
+    transition: .3s;
+}
+
+.accountViewBtn:hover {
+    background-color: #009be9;
+    cursor: pointer;
+}
+
+#playlistsSongs {
+    height: 75%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#accountViewPlaylists, #manageSongs {
+    width: 45%;
+    max-width: 480px;
+    height: 90%;
+    /* outline: 1px solid #878787; */
+    border-radius: 10px;
+    background-color: rgb(221, 221, 221);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.23);
+}
+
+/* #manageSongs {
+    width: 45%;
+    height: 90%;
+} */
+
+.accViewSubHeader {
+    height: 69px;
+    border-bottom: 1px solid #b9b9b9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.accViewSubHeader h2 {
+    margin-left: 20px;
+    -webkit-text-stroke: 1px #0074a2;
+    color: #0074a2;
+}
+
+#newSongBtn {
+    margin-right: 30px;
+    font-size: 1.5em;
+    color: #343434;
+    transition: .3s;
+}
+
+#newSongBtn:hover {
+    color:rgb(101, 101, 101)
+}
+
+.accViewFooter {
+    height: 29px;
+    width: 100%;
+    border-Top: #b9b9b9 1px solid;
+}
+
+#accViewSongsOverflow, #accViewPlaylistOverflow{
+    height: calc(100% - 100px);
+    overflow-y: scroll;
+    /* background-color: rgb(233, 233, 233); */
+}
+
+#accViewSongsOverflow::-webkit-scrollbar, #accViewPlaylistOverflow::-webkit-scrollbar {
+    appearance: none;
+    /* background-color: red; */
+    /* background-color: #1e1e1e22; */
+    width: 10px;
+}
+#accViewSongsOverflow::-webkit-scrollbar-thumb, #accViewPlaylistOverflow::-webkit-scrollbar-thumb {
+    background-color: #34343435;
+}
+
+.accViewTitle, .accViewPlaylistTitle {
+    color: #1e1e1e;
+}
+
+.accViewArtist, .accViewPlaylistSongs {
+    color: #676767;
+}
+
+a {
+    text-decoration: none;
+}
+
+.accViewCard {
+    height: 20%;
+    border-bottom: 1px solid #c4c4c499;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2%;
+    margin-left: 10px;
+}
+
+* {
+    /* outline: 1px red dashed; */
 }

@@ -32,8 +32,8 @@ def AccountCreationView(req: HttpRequest) -> HttpResponse:
 # ==={ Log In }===
 @unauthenticated_user
 def LogInView(req: HttpRequest) -> HttpResponse:
-    if req.method=='GET':
-        print('hello', req.GET)
+    # if req.method=='GET':
+    #     print('hello', req.GET)
     if req.method == 'POST':
         username = req.POST.get('username')
         password = req.POST.get('password')
@@ -72,19 +72,18 @@ def home_frame(req: HttpRequest, playlistID:str) -> HttpResponse:
     except:
         playlistInfo = None
 
-    # print(req.POST)
     if req.method == 'POST':
         if req.POST.get('Add Song'):
             songForm = AddSongForm(req.POST, req.FILES)
             if songForm.is_valid():
                 songForm.save()
                 messages.success(req, 'Song Accepted')
-        if req.POST.get('Add Playlist'):
+        elif req.POST.get('Add Playlist'):
             Playlist.objects.create(name=req.POST.get('name'), description=req.POST.get('description'), created_by=req.user)
             playlistForm = NewPlaylistForm() if req.user.is_authenticated else None
-        if req.POST.get('Populate Playlist'):
+        elif req.POST.get('Populate Playlist'):
             Playlist.objects.get(pk=req.POST.get('playlistKey')).songs.add(Song.objects.get(pk=req.POST.get('songKey'))) # type: ignore
-        if req.POST.get('Update Playlist'):
+        elif req.POST.get('Update Playlist'):
             try:
                 # updateList = Playlist.objects.get(pk=req.POST.get('playlistKey'))
                 playlistInfo.name = req.POST.get('name')
@@ -92,15 +91,13 @@ def home_frame(req: HttpRequest, playlistID:str) -> HttpResponse:
                 playlistInfo.save()
             except:
                 pass
-        if req.POST.get('Remove Song'):
+        elif req.POST.get('Remove Song'):
             Playlist.objects.get(pk=req.POST.get('removeSongPlaylistKey')).songs.remove(Song.objects.get(pk=req.POST.get('removeSongKey')))
 
-
-    # print(req.POST)
     context = {'songs': songs, 'playlistForm': playlistForm, 'songForm': songForm, 'playlists': playlists, 'playlistInfo': playlistInfo} # type: ignore
     return render(req, 'add-playlist.html', context) # type: ignore
 
-# ==={ Playlist Deletion }===
+# ==={ Playlist Deletion }=== #
 def delete_playlist(req: HttpRequest, playlistId: int) -> HttpResponseRedirect|HttpResponsePermanentRedirect:
     try:
         Playlist.objects.get(pk=f'{playlistId}').delete()
@@ -108,12 +105,15 @@ def delete_playlist(req: HttpRequest, playlistId: int) -> HttpResponseRedirect|H
         messages.error(req, 'Playlist could not be found')
     return redirect('/iframetest/none')
 
-# ==={ View Account }===
+# ==={ View Account }=== #
 @login_required(login_url='login')
 def account_view(req: HttpRequest) -> HttpResponse: 
-    return render(req, 'account-view.html', {'user': req.user})
+    userRoles = [i.name for i in req.user.groups.all()] # type: ignore
+    songs = Song.objects.all() if 'Admin' in userRoles else None
+    playlists = req.user.playlist_set.all() # type: ignore
+    return render(req, 'account-view.html', {'user': req.user, 'roles': userRoles, 'songs': songs, 'playlists': playlists})
 
-# ==={ Add Songs }===
+# ==={ Add Songs }=== #
 @allowed_users(allowed_roles=['Admin'])
 def add_song_view(req: HttpRequest) -> HttpResponse:
     form = AddSongForm()
@@ -125,7 +125,7 @@ def add_song_view(req: HttpRequest) -> HttpResponse:
             messages.success(req, 'Song Accepted')
     return render(req, 'add-song.html', {'form': form})
 
-# ==={ Delete Songs }===
+# ==={ Delete Songs }=== #
 @allowed_users(allowed_roles=['Admin'])
 def delete_song_view(req:HttpRequest, songKey:int) -> HttpResponse:
     try:
@@ -134,3 +134,46 @@ def delete_song_view(req:HttpRequest, songKey:int) -> HttpResponse:
         print('failed altogether')
     return redirect('home')
     # return HttpResponse('waiting')
+
+# ==={ Update Songs }=== #
+@allowed_users(allowed_roles=['Admin'])
+def update_song_view(req: HttpRequest, songKey: int) -> HttpResponse|HttpResponsePermanentRedirect:
+    song = None
+    try:
+        song = Song.objects.get(pk=f'{songKey}')
+    except:
+        messages.error(req, 'Song could not be found')
+        return redirect('account')
+    form = UpdateSongForm()
+    # print(req.POST)
+    if req.method == 'POST':
+        form = UpdateSongForm(req.POST)
+        if form.is_valid():
+            song.title = form.cleaned_data['title']
+            song.genre.clear()
+            for genre in form.cleaned_data['genre']:
+                song.genre.add(genre)
+            song.artist.clear()
+            for artist in form.cleaned_data['artist']:
+                song.artist.add(artist)
+            song.save()
+            return redirect('account')
+
+        else:
+            print('invalid')
+    
+    # if req.method == 'POST':
+    #     artist = req.POST.get('Artist')
+    #     title = req.POST.get('Title')
+    #     genre = req.POST.get('Genre1')
+    #     genre2 = req.POST.get('Genre2')
+    # else:
+    #     pass
+
+    return render(req, 'update-song.html', {'song': song, 'form': form})
+
+## ==={ Update Account }=== #
+# @login_required
+# def update_account_view(req):
+#     form = UserCreationForm()
+#     return render(req, 'update_account.html', {'form': form})

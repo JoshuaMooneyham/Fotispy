@@ -1,8 +1,71 @@
 {% extends "boilerplate.html" %}
 
 {% block content %}
-<h1>Hello {{user.username}}</h1>
-<button>Update account info</button>
-<button>view playlists</button>
-<a href="{% url "logout" %}"><button>logout</button></a>
+<div id='accountView'>
+    <div id="accountViewPlate">
+        <div id="accountViewHeaderWrapper">
+            <div id='goHomeWrapper'>
+                <a href="{% url "home" %}"><i id='goHomeBtn' class="fa-solid fa-house"></i></a>
+            </div>
+            <h1 id='accountViewHeader'>Hello {{user.username}}!</h1>
+            <div id="accViewBtns">
+                {% comment %} <a href="{% url "update_account" %}"><button id='updateAccount' class='accountViewBtn'>Update Account</button></a> {% endcomment %}
+                <button id='updateAccount' class='accountViewBtn'>Update Account</button>
+                <a href="{% url "logout" %}"><button id='logoutBtn' class='accountViewBtn'>logout</button></a>
+            </div>
+        </div>
+        {% if "Admin" in roles %}
+            <div id="playlistsSongs">
+                <div id='accountViewPlaylists'>
+                    <div id='accViewPlaylistHeader' class='accViewSubHeader'>
+                        <h2>Your Playlists</h2>
+                    </div>
+                    <div id='accViewPlaylistOverflow'>
+                    {% for playlist in playlists %}
+                        <div class="accViewPlaylistContainer accViewCard">
+                            <h3 class='accViewPlaylistTitle'>{{playlist.name}}</h3>
+                            <p class='accViewPlaylistSongs'>{{playlist.songs.all|length}} songs</p>
+                        </div>
+                    {% endfor %}
+                    </div>
+                    <div class='accViewFooter'></div>
+                </div>
+                <div id="manageSongs">
+                    <div id='manageSongsHeader' class='accViewSubHeader'>
+                        <h2>Manage Songs</h2>
+                        <a href="{% url 'add_song' %}"><i id='newSongBtn' class="fa-solid fa-plus"></i></a>
+                    </div>
+                    <div id='accViewSongsOverflow'>
+                        {% for song in songs %}
+                        <a href="{% url "update_song" song.pk %}">
+                            <div class='manageSongWrapper accViewCard'>
+                                <h3 class='accViewTitle'>{{song.title}}</h3>
+                                {% for artist in song.artist.all %}<p class='accViewArtist'>{{artist.name}}</p>{% endfor %}
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                    <div class='accViewFooter'></div>
+                </div>
+            </div>
+        {% elif 'Standard' in roles %}
+        <div id="playlistsSongs">
+            <div id='accountViewPlaylists'>
+                <div id='accViewPlaylistHeader' class='accViewSubHeader'>
+                    <h2>Your Playlists</h2>
+                </div>
+                <div id='accViewPlaylistOverflow'>
+                {% for playlist in playlists %}
+                    <div class="accViewPlaylistContainer accViewCard">
+                        <h3 class='accViewPlaylistTitle'>{{playlist.name}}</h3>
+                        <p class='accViewPlaylistSongs'>{{playlist.songs.all|length}} songs</p>
+                    </div>
+                {% endfor %}
+                </div>
+                <div class='accViewFooter'></div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
 {% endblock content %}

@@ -18,11 +18,3 @@
 </div>
 {% endif %}
 {% endblock formcontent %}
-{% comment %} {% if songForm %}
-<form action="" method='POST' enctype="multipart/form-data">
-    {% csrf_token %}
-    {{songForm.as_p}}
-    <input type="submit" name='Add Song'>
-</form>
-{% endif %}
-{% endblock formcontent %} {% endcomment %}

@@ -31,4 +31,8 @@ class NewPlaylistForm(forms.ModelForm):
     class Meta:
         model = Playlist
         fields = ['name', 'description']
-        
+
+class UpdateSongForm(forms.ModelForm):
+    class Meta:
+        model = Song
+        fields = ['title', 'genre', 'artist']        

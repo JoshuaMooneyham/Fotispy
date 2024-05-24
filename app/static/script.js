@@ -10,14 +10,6 @@ playlistNums.forEach((item) => {
     item.innerText = playlistNums.indexOf(item) + 1;
 })
 
-let playlists = document.getElementsByClassName('gridifier');
-let playlistList = [...playlists];
-
-playlistList.forEach((item) => {
-    let shit = item.getElementsByClassName('playlist-song-count');
-    shit[0].innerText = `${item.getElementsByTagName('song').length} songs`;
-})
-
 let newPlaylist = document.getElementById('playlistBtn');
 let hiddenPlaylist = document.getElementById('playlistHideToggle');
 let playlistContainer = document.getElementById('playlistFormContainer');
