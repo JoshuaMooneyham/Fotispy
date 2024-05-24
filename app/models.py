@@ -29,9 +29,9 @@ class Song(models.Model):
         return self.title
     
 class Playlist(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=30)
     songs = models.ManyToManyField(Song) # type: ignore
-    description = models.CharField(max_length=200, null=True, blank=True)
+    description = models.CharField(max_length=150, null=True, blank=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

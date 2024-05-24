@@ -1,5 +1,6 @@
 <form action="" method='POST' enctype="multipart/form-data">
     {% csrf_token %}
+    {% comment %} <input type="hidden" value="{{song.song_file}}" name='song_file'> {% endcomment %}
     {{form.title}}
     {{form.genre}}
     {{form.artist}}

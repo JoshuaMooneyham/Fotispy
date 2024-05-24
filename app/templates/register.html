@@ -17,22 +17,6 @@
             <form id='loginForm' method="POST" action="">
                 {% csrf_token %}
                 <div id="loginInputWrapper">
-                    {% comment %} <div id="usernameInputs">
-                        {{ form.username.label }}
-                        {{ form.username }}
-                    </div>
-                    <div id="emailInputs">
-                        {{ form.email.label }}
-                        {{ form.email }}
-                    </div>
-                    <div id="pass1Inputs">
-                        {{ form.password1.label }}
-                        {{ form.password1 }}
-                    </div>
-                    <div id="pass2Inputs">
-                        {{ form.password2.label }}
-                        {{ form.password2 }}
-                    </div> {% endcomment %}
                     <div id="usernameInputWrap">
                         <i id='usernameInputIcon' class='fa-solid fa-user'></i>
                         <input type="text" name="username" placeholder="Username" required class="loginInput loginUsername">

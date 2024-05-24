@@ -1049,6 +1049,45 @@ a {
     margin-left: 10px;
 }
 
-* {
-    /* outline: 1px red dashed; */
+#subGenre {
+    display: none;
+}
+
+#addSongWrapper {
+    width: 100vw;
+    height: 100vh;
+    background-color: #1e1e1e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#addSongForm {
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    width: 40%;
+    background-color: #f7fff7;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#fileInputWrap {
+    border: 4px dashed rgb(202, 202, 202);
+    height: 15%;
+    width: 70%;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#song_file::-webkit-file-upload-button {
+    height: 40px;
+    border-radius: 50px;
+    border: none;
+}
+
+#song_file span {
+    border: red 1px solid;
 }

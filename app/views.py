@@ -77,7 +77,6 @@ def home_frame(req: HttpRequest, playlistID:str) -> HttpResponse:
             songForm = AddSongForm(req.POST, req.FILES)
             if songForm.is_valid():
                 songForm.save()
-                messages.success(req, 'Song Accepted')
         elif req.POST.get('Add Playlist'):
             Playlist.objects.create(name=req.POST.get('name'), description=req.POST.get('description'), created_by=req.user)
             playlistForm = NewPlaylistForm() if req.user.is_authenticated else None
@@ -102,7 +101,7 @@ def delete_playlist(req: HttpRequest, playlistId: int) -> HttpResponseRedirect|H
     try:
         Playlist.objects.get(pk=f'{playlistId}').delete()
     except:
-        messages.error(req, 'Playlist could not be found')
+        pass
     return redirect('/iframetest/none')
 
 # ==={ View Account }=== #
@@ -119,11 +118,33 @@ def add_song_view(req: HttpRequest) -> HttpResponse:
     form = AddSongForm()
     if req.method == 'POST':
         form = AddSongForm(req.POST, req.FILES)
+        print(req.POST)
         print(f'Valid: {form.is_valid()}')
         if form.is_valid():
-            form.save()
-            messages.success(req, 'Song Accepted')
-    return render(req, 'add-song.html', {'form': form})
+            try:
+                genre = [Genre.objects.get(name=form.cleaned_data['genre'])]
+            except:
+                genre = [Genre.objects.create(name=form.cleaned_data['genre'])]
+            if form.cleaned_data.get('genre2'):
+                try:
+                    genre += [Genre.objects.get(name=form.cleaned_data['genre2'])]
+                except:
+                    genre += [Genre.objects.create(name=form.cleaned_data['genre2'])]
+            try:
+                artist = Artist.objects.get(name=form.cleaned_data['artist'])
+            except:
+                artist = Artist.objects.create(name=form.cleaned_data['artist'])
+            try:
+                song = Song.objects.create(song_file=form.cleaned_data['song_file'], title=form.cleaned_data['title'])
+                song.artist.add(artist)
+                for g in genre:
+                    if g not in song.genre.all():
+                        song.genre.add(g)
+                return redirect('account')
+            except:
+                print('Something Broke', form.cleaned_data['song_file'], form.cleaned_data['title'], artist)
+            
+    return render(req, 'add-song.html', {'form': form, 'genres': Genre.objects.all()})
 
 # ==={ Delete Songs }=== #
 @allowed_users(allowed_roles=['Admin'])
@@ -142,7 +163,6 @@ def update_song_view(req: HttpRequest, songKey: int) -> HttpResponse|HttpRespons
     try:
         song = Song.objects.get(pk=f'{songKey}')
     except:
-        messages.error(req, 'Song could not be found')
         return redirect('account')
     form = UpdateSongForm()
     # print(req.POST)

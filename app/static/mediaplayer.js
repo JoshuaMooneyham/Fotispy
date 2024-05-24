@@ -1,5 +1,4 @@
 // ==={ Independent Variables }===
-// let TestVar;
 let queue = [];
 let currentSong = '';
 let lastVolume = 1;
@@ -115,13 +114,6 @@ function buffer() { // <== Necessary to wait for iframe content to load fully
         }
     }
 
-    // playlistBtns.forEach((btn) => {
-    //     btn.addEventListener('click', () => {
-    //         queue = [...btn.querySelectorAll('song')];
-    //         loadSong(queue[0]);
-    //     })
-    // })
-
     songlist.forEach((song) => {
         song.addEventListener('click', (e)=> {
             queue = [...e.target.querySelectorAll('song')];
@@ -140,19 +132,4 @@ function buffer() { // <== Necessary to wait for iframe content to load fully
         loadSong(queue[queue.indexOf(currentSong)-1]);
         }
     }
-
-    // let test = iframeDoc.getElementById('songs-container');
-    // test.onchange = () => {
-    //     console.log('test refreshed')
-    // }
-
-    // test.onclick = () => {
-    //     test.style.backgroundColor = 'black';
-    //     TestVar = 'black'
-    // }
-    // console.log(typeof TestVar !== 'undefined');
-
-    // if (typeof TestVar !== 'undefined'){
-    //     test.style.backgroundColor = TestVar
-    // }
 }

@@ -1,12 +1,33 @@
 {% extends "boilerplate.html" %}
+{% load static %}
 
 {% block content %}
-<form action="" method='POST' enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.as_p}}
-    {% comment %} <label for="song_file">Song File:</label>
-    <input type="file", name='song_file', id='song_file' accept='audio/mpeg, audio/ogg'>
-    <input type='text' name='title'> {% endcomment %}
-    <input type="submit" name='Add Song'>
-</form>
+<div id='addSongWrapper'>
+    <form id='addSongForm' action="" method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        <div id="fileInputWrap">
+            <input required type="file", name='song_file', id='song_file' accept='audio/mpeg, audio/ogg'>
+        </div>
+        <input required placeholder='Title' type='text' name='title'>
+        <input class='genreInput' placeholder='Genre' type="text" name='genre'>
+        <i id='expandGenre' class="fa-solid fa-plus"></i>
+        <input id='subGenre' class='genreInput' placeholder='Sub-Genre (Optional)' type="text" name='genre2'>
+        <input  placeholder='artist' type="text" name='artist'>
+        <input type="submit" name='Add Song'>
+    </form>
+</div>
+
+<script>
+    let expand = document.getElementById('expandGenre');
+    expand.onclick = () => {
+        document.getElementById('subGenre').style.display = document.getElementById('subGenre').style.display === 'inline-block' ? 'none' : 'inline-block';
+        expand.classList.toggle('fa-xmark');
+        expand.classList.toggle('fa-plus');
+    }
+    let input = document.getElementById('song_file')
+    console.log(input.value)
+    input.onchange = () => {
+        console.log(input.value)
+    }
+</script>
 {% endblock content %}
