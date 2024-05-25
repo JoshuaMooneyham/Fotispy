@@ -818,7 +818,6 @@ colors {
     border-radius: 100%;
     color: #0074a2;
     transition: .3s;
-    border: red 1px solid;
 }
 
 .fa-circle-play:hover {

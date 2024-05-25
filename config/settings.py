@@ -28,8 +28,8 @@ SECRET_KEY = 'django-insecure--61nwzy7@9d+xn7g6s17^)sxx7sp@sm60-d7g%&^vn_8*%_)31
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # ==={ HEROKU }===
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 
 # ==={ HEROKU }===
 # ALLOWED_HOSTS = []
