@@ -10,7 +10,7 @@
             <h1 id='accountViewHeader'>Hello {{user.username}}!</h1>
             <div id="accViewBtns">
                 {% comment %} <a href="{% url "update_account" %}"><button id='updateAccount' class='accountViewBtn'>Update Account</button></a> {% endcomment %}
-                <button id='updateAccount' class='accountViewBtn'>Update Account</button>
+                <a href="{% url "update_account" %}"><button id='updateAccount' class='accountViewBtn'>Update Account</button></a>
                 <a href="{% url "logout" %}"><button id='logoutBtn' class='accountViewBtn'>logout</button></a>
             </div>
         </div>

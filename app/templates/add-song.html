@@ -4,16 +4,27 @@
 {% block content %}
 <div id='addSongWrapper'>
     <form id='addSongForm' action="" method='POST' enctype="multipart/form-data">
+        <a id='backToAccount' href="{% url "account" %}">Back</a>
+        <h1 id='addSongHeader'>Add Song</h1>
         {% csrf_token %}
-        <div id="fileInputWrap">
-            <input required type="file", name='song_file', id='song_file' accept='audio/mpeg, audio/ogg'>
+        <div id="formInputs">
+            <div id="fileInputWrap">
+                <p id='fileInputText'>No File Chosen</p>
+                <label id="fileInputBtn">
+                    Upload File
+                    <input required type="file", name='song_file', id='song_file' accept='audio/mpeg, audio/ogg'>
+                </label>
+            </div>
+
+            <input required placeholder='Title' type='text' name='title' class='newSongInput'>
+            <input placeholder='artist' type="text" name='artist' class='newSongInput'>
+            <input class='genreInput newSongInput' placeholder='Genre' type="text" name='genre'>
+            <div id='genre2wrap'>
+                <i id='expandGenre' class="fa-solid fa-plus"></i>
+                <input id='subGenre' class='genreInput newSongInput' placeholder='Sub-Genre (Optional)' type="text" name='genre2'>
+            </div>
+            <input id='submitSongBtn' type="submit" name='Add Song'>
         </div>
-        <input required placeholder='Title' type='text' name='title'>
-        <input class='genreInput' placeholder='Genre' type="text" name='genre'>
-        <i id='expandGenre' class="fa-solid fa-plus"></i>
-        <input id='subGenre' class='genreInput' placeholder='Sub-Genre (Optional)' type="text" name='genre2'>
-        <input  placeholder='artist' type="text" name='artist'>
-        <input type="submit" name='Add Song'>
     </form>
 </div>
 
@@ -24,10 +35,10 @@
         expand.classList.toggle('fa-xmark');
         expand.classList.toggle('fa-plus');
     }
-    let input = document.getElementById('song_file')
-    console.log(input.value)
+    let input = document.getElementById('song_file');
+    let text = document.getElementById('fileInputText');
     input.onchange = () => {
-        console.log(input.value)
+        text.innerText = input.value.slice(12, input.value.length)
     }
 </script>
 {% endblock content %}

@@ -12,15 +12,6 @@
     </head>
     <body>
         <div id='user-interface-wrapper'>
-            {% comment %} <header class='ui-header'>
-                <div class="icon-title">
-                    <img class='fotispy-icon' src="{% static "images/FotispyLogoText.png" %}" alt="FotiSpy">
-                </div>
-                    <input type="search">
-                <a href="{% url "account" %}"><button class='accountBtn'>account</button></a>
-            </header> {% endcomment %}
-
-
             <div class="ui-container">
                 <div id="playlistOverallContainer">
                     <div id="playlistcontainerHeader">
@@ -54,8 +45,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="/iframetest/{{playlist.pk}}" class='playlistBtn'>
-                                    {% comment %} <button class='playnestTest'>D</button> {% endcomment %}
+                                {% comment %} <a href="/iframetest/{{playlist.pk}}" class='playlistBtn'> {% endcomment %}
+                                <a href="{% url "ift" playlist.pk %}" class='playlistBtn'>
+
                                     {% for song in playlist.songs.all %}
                                         <song class='songArtist' title={{song.song_file.url}} style='display: none'>{{song.title}}</song>
                                     {% endfor %}
@@ -98,7 +90,6 @@
                                     </form>
                                 </div>
                             </div>
-                            {% comment %} <song class="{% for artist in song.artist.all %}{{artist}}{% endfor %}" title={{song.song_file.url}} style='display: none'>{{song.title}}</song> {% endcomment %}
                         </div>
                         {% endfor %}
                         {% block formcontent %}
@@ -133,9 +124,6 @@
                             </div>
                         </form>
                     </div>
-                    {% comment %} <div id='pvschAnchor'>
-                        <p id='pvsch'>songs</p>
-                    </div> {% endcomment %}
                     <div id='playlistViewSongContainer'>
                         {% for song in playlistInfo.songs.all %}
                             <form method='POST' action='' class='playlistViewSong'>

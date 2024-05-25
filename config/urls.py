@@ -26,7 +26,10 @@ urlpatterns: list[URLPattern|URLResolver] = [
     path('login/', LogInView, name='login'),
     path('logout/', logoutView, name='logout'),
     path("account/", account_view, name="account"),
-    # path("account/update/", update_account_view, name="update_account"),
+    path("account/update/", update_account_view, name="update_account"),
+    path("account/update/username/", update_username, name='update_username'),
+    path("account/update/email/", update_email, name='update_email'),
+    path("account/update/password/", update_password, name='update_password'),
     path('songs/add/', add_song_view, name='add_song'),
     path('songs/delete/<int:songKey>/', delete_song_view, name='delete_song'),
     path('songs/update/<int:songKey>/', update_song_view, name='update_song'),
@@ -37,3 +40,5 @@ urlpatterns: list[URLPattern|URLResolver] = [
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 ]
+
+handler404 = 'app.views.handle404'

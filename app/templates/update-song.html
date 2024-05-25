@@ -1,8 +1,39 @@
-<form action="" method='POST' enctype="multipart/form-data">
-    {% csrf_token %}
-    {% comment %} <input type="hidden" value="{{song.song_file}}" name='song_file'> {% endcomment %}
-    {{form.title}}
-    {{form.genre}}
-    {{form.artist}}
-    <input type="submit" name='Update Song'>
-</form>
+{% extends "boilerplate.html" %}
+{% load static %}
+
+{% block content %}
+<div id='addSongWrapper'>
+    <form id='addSongForm' action="" method='POST' enctype="multipart/form-data">
+        <a id='backToAccount' href="{% url "account" %}">Back</a>
+        <h1 id='addSongHeader'>Update Song</h1>
+        {% csrf_token %}
+        <div id="formInputs">
+            <input required placeholder='Title' type='text' name='title' class='newSongInput'>
+            <input placeholder='artist' type="text" name='artist' class='newSongInput'>
+            <input class='genreInput newSongInput' placeholder='Genre' type="text" name='genre'>
+            <div id='genre2wrap'>
+                <i id='expandGenre' class="fa-solid fa-plus"></i>
+                <input id='subGenre' class='genreInput newSongInput' placeholder='Sub-Genre (Optional)' type="text" name='genre2'>
+            </div>
+            <div id="updateSongBtns">
+                <input id='submitSongBtn' type="submit" value='Update' name='Add Song'>
+                <a href="{% url "delete_song" song.pk %}"><div id="deleteSongBtn">Delete</div></a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    let expand = document.getElementById('expandGenre');
+    expand.onclick = () => {
+        document.getElementById('subGenre').style.display = document.getElementById('subGenre').style.display === 'inline-block' ? 'none' : 'inline-block';
+        expand.classList.toggle('fa-xmark');
+        expand.classList.toggle('fa-plus');
+    }
+    let input = document.getElementById('song_file');
+    let text = document.getElementById('fileInputText');
+    input.onchange = () => {
+        text.innerText = input.value.slice(12, input.value.length)
+    }
+</script>
+{% endblock content %}

@@ -1,0 +1,24 @@
+{% extends "update_field.html" %}
+
+{% block content %}
+    <form action="" method='POST' class="updateFieldPlate">
+        <a id='goBack' href="{% url "update_account" %}">Back</a>
+        {% csrf_token %}
+        <h1>Update Username</h1>
+        <div class="updateAccInputs">
+            <input class="updateAccInput" type="text" value="{{user.username}}" placeholder='Enter Username' name="username" id="updateUsernameInput" required maxlength='150'>
+        </div>
+        <div id="errorTexts">
+            {% for error in errors %}
+            <p>* {{error}}</p>
+            {% endfor %}
+        </div>
+        <div id='helpTexts'>
+        {% for message in form.help_texts %}
+        <p class='helpMessage'>{{message}}</p>
+        {% endfor %}
+        </div>
+        <input type="submit" name='submit' value='Confirm' class='confirmButton'>
+    </form>
+{% endblock content %}
+

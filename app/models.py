@@ -1,8 +1,5 @@
 from django.db import models # type: ignore
-
 from django.contrib.auth.models import User # type: ignore
-
-# music = FileSystemStorage(location='/media')
 
 # Create your models here.
 class Artist(models.Model):
@@ -36,6 +33,3 @@ class Playlist(models.Model):
 
     def __str__(self):
         return self.name
-
-
-
