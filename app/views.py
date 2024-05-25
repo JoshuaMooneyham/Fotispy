@@ -103,7 +103,7 @@ def delete_playlist(req: HttpRequest, playlistId: int) -> HttpResponseRedirect|H
         Playlist.objects.get(pk=f'{playlistId}').delete()
     except:
         pass
-    return redirect('/iframetest/none')
+    return redirect('/iframetest/none/')
 
 # ==={ View Account }=== #
 @login_required(login_url='login')
