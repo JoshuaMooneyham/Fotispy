@@ -804,16 +804,14 @@ colors {
     width: fit-content;
 }
 
-#playlistPlayBtn {
+#playlistPlayBtnWrap {
     display: flex;
     height: 70px;
     font-size: 50px;
-    /* outline: 1px dashed red; */
     width: 97%;
     justify-content: center;
     align-items: center;
     position: relative;
-    /* top: 10px; */
 }
 
 .fa-circle-play {

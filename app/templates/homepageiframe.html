@@ -141,8 +141,8 @@
                             </form>
                         {% endfor %}
                     </div>
-                    <div id='playlistPlayBtn'>
-                        <i class="fa-solid fa-circle-play">
+                    <div id='playlistPlayBtnWrap'>
+                        <i class="fa-solid fa-circle-play" id='playlistPlayBtn'>
                             {% for song in playlistInfo.songs.all %}
                                 <song class="{% for artist in song.artist.all %}{{artist.name}}{% endfor %}" title={{song.song_file.url}} style='display: none'>{{song.title}}</song>
                             {% endfor %}
