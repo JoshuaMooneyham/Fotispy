@@ -11,7 +11,7 @@ Here are the baseline requirements. Your application must allow Users to:
     [x] Use Form objects to validate user data
     [x] Use appropriate database relationship fields to model    relationships between data
     [x] Restrict some pages to logged in users
-    [ ] Utilize Permissions (and possibly Groups) to control user    authorization. For example:
+    [x] Utilize Permissions (and possibly Groups) to control user    authorization. For example:
         [x] You app could have an admin or moderator user group that has more permissions than a standard user.
         [ ] You app could involve two different kinds of users that use the website in complementary ways. For example:
             * Github Classroom: Teachers create assignments that they give to students
