@@ -54,7 +54,7 @@ def LogInView(req: HttpRequest) -> HttpResponse:
 # ==={ Log Out }===
 def logoutView(req: HttpRequest) -> HttpResponse:
     logout(req)
-    return redirect('login')
+    return redirect('home')
 
 # ==={ Media Player }===
 def home_view(req: HttpRequest) -> HttpResponse:

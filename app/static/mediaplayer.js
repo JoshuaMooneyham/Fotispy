@@ -113,8 +113,8 @@ function buffer() { // <== Necessary to wait for iframe content to load fully
     try {
         testPlaylist.onclick = () => {
             queue = [...testPlaylist.querySelectorAll('song')];
-            playlingPlaylist = testPlaylist.parentElement.querySelector('#playlistViewTitle').innerText
-            console.log(playlingPlaylist)
+            playlingPlaylist = iframeDoc.location.href;
+            console.log(playlingPlaylist);
             loadSong(queue[0]);
         }
     } catch {
@@ -123,10 +123,10 @@ function buffer() { // <== Necessary to wait for iframe content to load fully
     
     deletePlaylist = iframeDoc.getElementById('deletePlaylist');
     try {
-        console.log(deletePlaylist.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('#playlistViewTitle'))
-        console.log(iframeDoc.getElementById('playlistViewTitle'))
+        // console.log(deletePlaylist.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('#playlistViewTitle'))
+        // console.log(iframeDoc.getElementById('playlistViewTitle'))
         deletePlaylist.onclick = () => {
-            if (iframeDoc.getElementById('playlistViewTitle').innerText == playlingPlaylist) {
+            if (iframeDoc.location.href == playlingPlaylist) {
                 unloadSong()
             }
         }
