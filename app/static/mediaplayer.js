@@ -2,7 +2,7 @@
 let queue = [];
 let currentSong = '';
 let lastVolume = 1;
-// let playlingPlaylist = '';
+let playlingPlaylist = '';
 
 function buffer() { // <== Necessary to wait for iframe content to load fully
 
@@ -77,6 +77,23 @@ function buffer() { // <== Necessary to wait for iframe content to load fully
         queue.indexOf(currentSong) > 0 ? back.classList.remove('inactive') : back.classList.add('inactive');
     }
 
+    function unloadSong() {
+        player.src = '';
+        currentSong = '';
+        title.innerText = '';
+        artist.innerText = '';
+        queue = [];
+        playlingPlaylist = '';
+        currentDisplay.innerText = '-:--';
+        totalDisplay.innerText = '-:--';
+        skip.classList.add('inactive');
+        back.classList.add('inactive');
+        play.classList.add('inactive');
+        pause.classList.add('inactive');
+        pause.style.display = 'none';
+        play.style.display = 'block';
+    }
+
     /* ==={ Events/Listeners }=== */ 
 
     player.onloadedmetadata = handleLoad
@@ -92,13 +109,29 @@ function buffer() { // <== Necessary to wait for iframe content to load fully
     mute.onclick = handleMute
 
     testPlaylist = iframeDoc.getElementById('playlistPlayBtn');
+   
     try {
         testPlaylist.onclick = () => {
             queue = [...testPlaylist.querySelectorAll('song')];
+            playlingPlaylist = testPlaylist.parentElement.querySelector('#playlistViewTitle').innerText
+            console.log(playlingPlaylist)
             loadSong(queue[0]);
         }
     } catch {
-        console.log('something broke')
+        console.log('play playlist broke')
+    }
+    
+    deletePlaylist = iframeDoc.getElementById('deletePlaylist');
+    try {
+        console.log(deletePlaylist.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('#playlistViewTitle'))
+        console.log(iframeDoc.getElementById('playlistViewTitle'))
+        deletePlaylist.onclick = () => {
+            if (iframeDoc.getElementById('playlistViewTitle').innerText == playlingPlaylist) {
+                unloadSong()
+            }
+        }
+    } catch {
+        console.log('delete playlist broke')
     }
 
     iframe.onchange = () => {
@@ -118,6 +151,7 @@ function buffer() { // <== Necessary to wait for iframe content to load fully
     songlist.forEach((song) => {
         song.addEventListener('click', (e)=> {
             queue = [...e.target.querySelectorAll('song')];
+            playlingPlaylist = '';
             loadSong(queue[0]);
         })
     })

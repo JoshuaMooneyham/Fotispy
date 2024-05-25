@@ -9,8 +9,8 @@
         {% csrf_token %}
         <div id="formInputs">
             <input required placeholder='Title' type='text' name='title' class='newSongInput'>
-            <input placeholder='artist' type="text" name='artist' class='newSongInput'>
-            <input class='genreInput newSongInput' placeholder='Genre' type="text" name='genre'>
+            <input placeholder='artist' type="text" required name='artist' class='newSongInput'>
+            <input class='genreInput newSongInput' required placeholder='Genre' type="text" name='genre'>
             <div id='genre2wrap'>
                 <i id='expandGenre' class="fa-solid fa-plus"></i>
                 <input id='subGenre' class='genreInput newSongInput' placeholder='Sub-Genre (Optional)' type="text" name='genre2'>
