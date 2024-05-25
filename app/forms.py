@@ -49,7 +49,10 @@ class UpdateUsername(forms.Form):
         cleaned_data = super().clean()
         regexTest = re.findall(r'[\w\+\.\@\-]', cleaned_data.get('username'))
         if len(regexTest) == len(cleaned_data['username']):
-            return cleaned_data
+            if len(User.objects.filter(username=cleaned_data['username'])) == 0:
+                return cleaned_data
+            else:
+                raise forms.ValidationError('A user with that username already exists')
         else:
             raise forms.ValidationError('Illegal character entered')
         
