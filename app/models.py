@@ -3,21 +3,21 @@ from django.contrib.auth.models import User # type: ignore
 
 # Create your models here.
 class Artist(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=30)
 
     def __str__(self):
         return self.name
     
 
 class Genre(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=20)
 
     def __str__(self):
         return self.name
 
 
 class Song(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=35)
     song_file = models.FileField(upload_to='')
     artist = models.ManyToManyField(Artist) # type: ignore
     genre = models.ManyToManyField(Genre) # type: ignore

@@ -63,8 +63,8 @@ colors {
     flex-direction: column;
     width: 150px;
     color: #d8d8d8;
-    /* max-height: 30px; */
-    /* overflow-x: scroll; */
+    text-wrap: wrap;
+    word-break: break-word;
 }
 
 #playing-title {
@@ -370,6 +370,10 @@ colors {
 
 .playlist-text {
     font-size: 1.2em;
+    overflow: hidden;
+    /* text-overflow: ellipsis;
+    text-wrap: nowrap; */
+    word-break: break-word;
 }
 
 .playlist-song-count {
@@ -435,19 +439,35 @@ colors {
     padding: 5px;
 }
 
+.songTitleArtist {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    text-wrap: nowrap;
+}
+
 .songTitle {
     font-size: 1.3em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .artistSpan {
     color: rgb(104, 104, 104);
     font-size: .9em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
 }
 
 .songMetaBtn {
     display: flex;
     gap: 20px;
     align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .songPlayBtn  {
@@ -479,6 +499,7 @@ colors {
     padding: 5px;
     font-size: .6em;
     font-weight: bolder;
+    text-wrap: nowrap;
 }
 
 .ellipsis-box {
@@ -853,6 +874,8 @@ colors {
 
 #playlistViewTitle {
     font-size: 1.7em;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #playlistViewTitleForm {
