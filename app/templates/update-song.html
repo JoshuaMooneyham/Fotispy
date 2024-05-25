@@ -8,12 +8,12 @@
         <h1 id='addSongHeader'>Update Song</h1>
         {% csrf_token %}
         <div id="formInputs">
-            <input required placeholder='Title' type='text' name='title' class='newSongInput'>
-            <input placeholder='artist' type="text" required name='artist' class='newSongInput'>
-            <input class='genreInput newSongInput' required placeholder='Genre' type="text" name='genre'>
+            <input maxlength='50' required placeholder='Title' type='text' name='title' class='newSongInput'>
+            <input maxlength='50' placeholder='artist' type="text" required name='artist' class='newSongInput'>
+            <input maxlength='50' class='genreInput newSongInput' required placeholder='Genre' type="text" name='genre'>
             <div id='genre2wrap'>
                 <i id='expandGenre' class="fa-solid fa-plus"></i>
-                <input id='subGenre' class='genreInput newSongInput' placeholder='Sub-Genre (Optional)' type="text" name='genre2'>
+                <input maxlength='50' id='subGenre' class='genreInput newSongInput' placeholder='Sub-Genre (Optional)' type="text" name='genre2'>
             </div>
             <div id="updateSongBtns">
                 <input id='submitSongBtn' type="submit" value='Update' name='Add Song'>
