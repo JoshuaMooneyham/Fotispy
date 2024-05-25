@@ -120,7 +120,7 @@
                                 <div id="btns">
                                     <input id='submitUpdate' type="submit" name='Update Playlist' value='Update'>
                                     {% comment %} <a id='deletePlaylist' href="/playlists/delete/{{playlistInfo.pk}}">Delete</a> {% endcomment %}
-                                    <a id='deletePlaylist' href="{% url "delete_playlist" playlist.pk %}">Delete</a>
+                                    <a id='deletePlaylist' href="{% url "deletePlaylist" playlist.pk %}">Delete</a>
                                 </div>
                             </div>
                         </form>
