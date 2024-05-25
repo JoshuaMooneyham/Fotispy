@@ -11,7 +11,7 @@ from app.decorators import *
 # Create your views here.
 
 # ==={ Redirect on 404 }===
-def handle404(req, *a, **k):
+def handle404(req, *a, **k): #type:ignore
     return redirect('home')
 
 # ==={ Create Account }===
@@ -218,18 +218,18 @@ def update_song_view(req: HttpRequest, songKey: int) -> HttpResponse|HttpRespons
     return render(req, 'update-song.html', {'song': song, 'form': form})
 
 # ==={ Update Account Base }===
+@login_required(login_url='login')
 def update_account_view(req: HttpRequest):
     
     return render(req, 'update_account.html')
 
+@login_required(login_url='login')
 def update_password(req: HttpRequest):
     form = UpdatePassword()
     errors = None
     if req.method == "POST":
         form = UpdatePassword(req.POST)
-        print(form)
         if form.is_valid():
-            print('valid')
             user = req.user
             req.user.set_password(form.cleaned_data.get('password1'))
             req.user.save()
@@ -239,6 +239,7 @@ def update_password(req: HttpRequest):
             errors = form.errors['password2']
     return render(req, 'update_password.html', {'form': form, 'errors': errors})
 
+@login_required(login_url='login')
 def update_email(req: HttpRequest):
     form = UpdateEmail()
     errors = None
@@ -253,6 +254,7 @@ def update_email(req: HttpRequest):
     
     return render(req, 'update_email.html', {'form': form, 'errors': errors})
 
+@login_required(login_url='login')
 def update_username(req: HttpRequest):
     form = UpdateUsername()
     errors = None

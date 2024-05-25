@@ -22,7 +22,7 @@ def allowed_users(allowed_roles=[]): # type: ignore
                 if group in allowed_roles:
                     return view_func(req, *args, **kwargs) # type: ignore
             else:
-                return HttpResponse('You must be signed in to an ADMIN account to view this page')
+                return redirect('home')
             
 
         return wrapper_func # type: ignore

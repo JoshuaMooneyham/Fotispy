@@ -41,6 +41,7 @@ colors {
     background: none;
     border: transparent;
     height: 25px;
+    transition: .3s;
 }
 
 .playerbtn:hover {
@@ -51,6 +52,10 @@ colors {
 
 .inactive {
     opacity: 60%;
+}
+
+.inactive:hover {
+    cursor: default;
 }
 
 #now-playing-wrapper {
@@ -148,6 +153,11 @@ colors {
     appearance: none;
     background: none;
     width: 100px;
+    transition: .3s;
+}
+
+#volume:hover {
+    opacity: 60%;
 }
 
 #volume::-webkit-slider-runnable-track {
@@ -163,8 +173,8 @@ colors {
     display: flex;
     background: #d8d8d8;
     box-shadow: -1000.5px 0 0 1000px #d8d8d8;
-    height: 1px;
-    width: 1px;
+    height: 0px;
+    width: 0px;
     border-radius: 20px;
 }
 
@@ -213,6 +223,12 @@ colors {
     width: 30px;
     margin-right: 50px;
     color: #cdcdcd;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.accountBtn:hover {
+    opacity: 60%;
 }
 
 .ui-container {
@@ -376,9 +392,12 @@ colors {
     justify-content: space-between;
     align-items: center;
     border: transparent;
-    width: 95%;
-    margin-left: 5%;
+    width: 97%;
+    /* width: 95%; */
+    margin-left: 3%;
+    /* margin-left: 5%; */
     height: 100%;
+    transition: .3s;
 }
 
 #playlistBtn:hover {
@@ -433,10 +452,11 @@ colors {
 
 .songPlayBtn  {
     font-size: .9em;
+    transition: .3s
 }
 
 .songPlayBtn:hover {
-    opacity: 60%;
+    color: #777777;
     cursor: pointer;
 }
 
@@ -470,6 +490,7 @@ colors {
     justify-content: center;
     align-items: center;
     position: relative;
+    transition: .3s;
 }
 
 .playlistPopulationAnchor {
@@ -540,7 +561,8 @@ colors {
 
 .ellipsis-box:hover {
     cursor: pointer;
-    background-color: #e4e4e4;
+    background-color: #f1f1f1;
+    color: #343434;
 }
 
 .hidden {
@@ -634,7 +656,7 @@ colors {
 #submitPlaylist {
     width: 100px;
     height: 50px;
-    background-color: #007bb9;
+    background-color: #006ea4;
     border-radius: 50px;
     color: white;
     border: transparent;
@@ -656,11 +678,13 @@ colors {
     appearance: none;
     color: #f7fff7;
     font-size: 1em;
+    transition: .3s;
+    cursor: pointer;
 }
 
 .playlistPopulationClose:hover {
     background-color: transparent;
-    opacity: 60%;
+    color: #979797;
 }
 
 .playlistViewHeaderForm {
@@ -668,11 +692,18 @@ colors {
 }
 
 #updateBtn {
-    width: 95%;
+    /* width: 95%; */
     text-align: right;
     position: relative;
+    right: -90%; /* this changed */
     top: 8px;
     font-size: 1.3em;
+    transition: .3s;
+}
+
+#updateBtn:hover {
+    color: gray;
+    cursor: pointer;
 }
 
 #playlistViewDesc {
@@ -717,10 +748,11 @@ colors {
     top: 1.5px;
     color: rgb(200, 60, 60);
     font-size: 1.5em;
+    transition: .3s;
 }
 
 .fa-circle-minus:hover {
-    opacity: 60%;
+    color: rgb(200, 119, 119);
     cursor: pointer;
 }
 
@@ -771,7 +803,7 @@ colors {
 
 .fa-circle-play:hover {
     cursor: pointer;
-    color: #0083c5;
+    color: #0194dd;
 }
 
 #playlistViewHeaderForm {
